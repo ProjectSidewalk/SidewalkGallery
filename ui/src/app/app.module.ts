@@ -9,6 +9,8 @@ import { RouteExampleComponent } from './route-example/route-example.component';
 import { AppService } from './app.service';
 import { AppHttpInterceptorService } from './http-interceptor.service';
 
+import {GalleryComponent} from './gallery/gallery-component';
+
 const routes: Routes = [
   {
     path: 'scala',
@@ -26,15 +28,23 @@ const routes: Routes = [
     data: { technology: 'Angular' }
   },
   {
+    path: 'gallery',
+    component: GalleryComponent,
+  },
+  {
     path: '**',
     redirectTo: '/play',
     pathMatch: 'full'
   }
 ];
 
+/**
+ * Highest level Angular module for SidewalkGallery.
+ */
 @NgModule({
   declarations: [
     AppComponent,
+    GalleryComponent,
     RouteExampleComponent
   ],
   imports: [
