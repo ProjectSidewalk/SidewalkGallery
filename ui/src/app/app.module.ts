@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { RouteExampleComponent } from './route-example/route-example.component';
 
 import { AppService } from './app.service';
+import { GalleryService } from './gallery-service';
 import { AppHttpInterceptorService } from './http-interceptor.service';
 
-import {GalleryComponent} from './gallery/gallery-component';
+import {GalleryRoot} from './gallery/gallery-root';
 
 const routes: Routes = [
   {
@@ -29,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: 'gallery',
-    component: GalleryComponent,
+    component: GalleryRoot,
   },
   {
     path: '**',
@@ -44,7 +45,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    GalleryComponent,
+    GalleryRoot,
     RouteExampleComponent
   ],
   imports: [
@@ -58,6 +59,7 @@ const routes: Routes = [
   ],
   providers: [
     AppService,
+    GalleryService,
     {
       multi: true,
       provide: HTTP_INTERCEPTORS,
