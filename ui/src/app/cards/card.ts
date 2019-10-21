@@ -1,6 +1,3 @@
-/**
- * Front-end model object for a Card.
- */
 export class Card {
     name: string;
     imageUrl: string;   // Should use a SafeURL

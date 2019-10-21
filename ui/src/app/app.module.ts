@@ -1,16 +1,18 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
+import { AppHttpInterceptorService } from './http-interceptor.service';
 import { AppComponent } from './app.component';
-import { RouteExampleComponent } from './route-example/route-example.component';
 
 import { AppService } from './app.service';
-import { GalleryService } from './gallery-service';
-import { AppHttpInterceptorService } from './http-interceptor.service';
+import { GalleryModule } from './gallery/gallery-module';
 
 import {GalleryRoot} from './gallery/gallery-root';
+
+import { RouteExampleComponent } from './route-example/route-example.component';
 
 const routes: Routes = [
   {
@@ -41,25 +43,26 @@ const routes: Routes = [
 
 /**
  * Highest level Angular module for SidewalkGallery.
+ * TODO: Break up into a GalleryModule?
  */
 @NgModule({
   declarations: [
     AppComponent,
-    GalleryRoot,
     RouteExampleComponent
   ],
   imports: [
     BrowserModule,
+    GalleryModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({
       cookieName: 'Csrf-Token',
       headerName: 'Csrf-Token',
     }),
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule
   ],
   providers: [
     AppService,
-    GalleryService,
     {
       multi: true,
       provide: HTTP_INTERCEPTORS,

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import {MatCardModule} from '@angular/material/card';
+
 import { Card } from './card';
 
 @Component({
@@ -10,10 +12,8 @@ import { Card } from './card';
  * Front-end representation of one card in the gallery.
  */
 export class GalleryCard {
-    card: Card;
+    // Metadata object containing information about this GalleryCard.
+    @Input() card: Card | undefined;
 
-    constructor (card: Card) {
-        this.card = card;
-    }
 
 }

@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Card } from '../cards/card';
 
-import { AppService } from '../app.service';
-
+/**
+ * Angular component for the overview of one gallery.
+ */
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'gallery-overview',
+  templateUrl: './gallery-overview.html',
+  styleUrls: ['./gallery-overview.css']
 })
 export class GalleryOverview {
+  @Input() cards: Card[] | undefined;
+  @Input() title: string | undefined;
+  maxItems: number;
+  
+  constructor() {
+    this.maxItems = 16;
     
+  }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { GalleryService } from '../gallery-service';
 import { Card } from '../cards/card';
+import { GalleryOverview } from './gallery-overview';
 
 /** 
  * The top level-component for a sidewalk gallery. Holds multiple individual label galleries inside.
@@ -20,8 +21,6 @@ export class GalleryRoot {
     surfaceProbCards: Card[] | undefined;
     obstacleCards: Card[] | undefined;
     missingSidewalkCards: Card[] | undefined;
-
-
 
     // TODO: Pass in a different service (GalleryService).
     constructor(private galleryService: GalleryService) {

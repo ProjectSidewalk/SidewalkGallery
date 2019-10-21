@@ -15,6 +15,7 @@ import { Card } from './cards/card';
 export class GalleryService {
     private serviceUrl = '/api/summary';
     private dataPostTestUrl = '/api/postTest';
+    private labelMetadataUrl = '/api/labelMetadata/'
 
     constructor(private http: HttpClient) { }
 
@@ -42,12 +43,12 @@ export class GalleryService {
         let images: Card[] = [];
         if (prod) {
             // Queries endpoints to retrieve metadata for this image type.
-
+            console.log(this.http.post(this.labelMetadataUrl, labelTypeId));
         } else {
             // Hardcoded metadata to retrieve -- use since we don't have a backend.
-            images.push(new Card("card1", "url1"));
-            images.push(new Card("card2", "url2"));
-            images.push(new Card("card3", "url3"));
+            images.push(new Card("card1", "curb-ramp-example.png"));
+            images.push(new Card("card2", "curb-ramp-example.png"));
+            images.push(new Card("card3", "curb-ramp-example.png"));
         }
         return images;
     }
