@@ -1,3 +1,9 @@
 <mat-card class="gallery-card">
-    <mat-card-title>I am a card.</mat-card-title>
+    <div class="gallery-card-outer-container">
+        <div class="gallery-card-inner-container">
+            <mat-card-title>{{name}}</mat-card-title>
+            <!-- Hard-coding image paths for cards. Should be changed to actual url later. -->
+            <img src="/assets/{{imageUrl}}"/>
+        </div>
+    </div>
 </mat-card>

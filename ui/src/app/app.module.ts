@@ -36,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/play',
+    redirectTo: '/gallery',
     pathMatch: 'full'
   }
 ];
