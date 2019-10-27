@@ -1,9 +1,9 @@
 export class Card {
-    name: string;
-    imageUrl: string;   // Should use a SafeURL
+    name: string|undefined;
+    imageUrl: string|undefined;   // Should use a SafeURL
+    severity: number|undefined;
+    description: string|undefined;
+    tags: string[]|undefined;
 
-    constructor (name: string, imageUrl: string) {
-        this.name = name;
-        this.imageUrl = imageUrl;
-    }
+    constructor () {}
 }

@@ -46,10 +46,22 @@ export class GalleryService {
             console.log(this.http.post(this.labelMetadataUrl, labelTypeId));
         } else {
             // Hardcoded metadata to retrieve -- use since we don't have a backend.
-            images.push(new Card("card1", "curb-ramp-example.png"));
-            images.push(new Card("card2", "curb-ramp-example.png"));
-            images.push(new Card("card3", "curb-ramp-example.png"));
+            images.push(this.getCard());
+            images.push(this.getCard());
+            images.push(this.getCard());
+            images.push(this.getCard());
+            images.push(this.getCard());
+            images.push(this.getCard());
         }
         return images;
+    }
+
+    private getCard(): Card {
+        let card: Card = new Card();
+        card.name = "card6";
+        card.imageUrl = "curb-ramp-example.png";
+        card.severity = 2;
+        card.description = "Hello, this is a very very long description for a curb ramp image.";
+        return card;
     }
 }

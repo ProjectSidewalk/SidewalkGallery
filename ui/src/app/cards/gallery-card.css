@@ -1,6 +1,5 @@
 :host {
     width: 270px;
-    height: 300px;
     margin-left: 10px;
 }
 
@@ -8,4 +7,25 @@
     width: inherit;
     height: inherit;
     margin-left: 10px;
+}
+
+.gallery-card-inner-container img.gallery-image {
+    width: 100%;
+}
+
+.gallery-metadata {
+    display: flex;
+}
+
+.metadata-container {
+    margin-top: 10px;
+}
+
+.metadata-description {
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.metadata-content {
+    font-weight: 400;
 }

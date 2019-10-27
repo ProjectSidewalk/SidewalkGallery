@@ -2,8 +2,24 @@
     <div class="gallery-card-outer-container">
         <div class="gallery-card-inner-container">
             <mat-card-title>{{name}}</mat-card-title>
-            <!-- Hard-coding image paths for cards. Should be changed to actual url later. -->
-            <img src="/assets/{{imageUrl}}"/>
+            <div class="image-container">
+                <!-- Hard-coding image paths for cards. Should be changed to actual url later. -->
+                <img class="gallery-image" src="/assets/{{imageUrl}}"/>
+            </div>
+            <div class="metadata-container">
+                <div class="gallery-metadata">
+                    <div class="metadata-description">Severity: </div>
+                    <div class="metadata-content">{{severity}}</div>
+                </div>
+                <div class="gallery-metadata">
+                    <div class="metadata-description">Description: </div>
+                    <div class="metadata-content">{{description}}</div>
+                </div>
+                <div class="gallery-metadata">
+                    <div class="metadata-description">Tags: </div>
+                    <div class="metadata-content">{{tags}}</div>
+                </div>
+            </div>
         </div>
     </div>
 </mat-card>

@@ -15,11 +15,23 @@ export class GalleryCard {
     // Metadata object containing information about this GalleryCard.
     @Input() card: Card | undefined;
 
-    get imageUrl(): string {
+    get description(): string|undefined {
+        return this.card!.description;
+    }
+
+    get imageUrl(): string|undefined {
         return this.card!.imageUrl;
     }
 
-    get name(): string {
+    get name(): string|undefined {
         return this.card!.name;
+    }
+
+    get severity(): number|undefined {
+        return this.card!.severity;
+    }
+
+    get tags(): string[]|undefined {
+        return this.card!.tags;
     }
 }
