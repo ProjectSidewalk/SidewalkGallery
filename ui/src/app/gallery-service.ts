@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/index';
 
+import { Constants } from './constants';
+
 import { Card } from './cards/card';
 
 /**
@@ -39,29 +41,77 @@ export class GalleryService {
      * Retrieves all the metadata for the images associated with some label id.˜
      * @param labelTypeId 
      */
-    public getLabelMetadata(labelTypeId: number, prod: boolean): Card[] {
+    public getLabelMetadata(labelTypeId: number, maxCards: number, prod: boolean): Card[] {
         let images: Card[] = [];
         if (prod) {
             // Queries endpoints to retrieve metadata for this image type.
             console.log(this.http.post(this.labelMetadataUrl, labelTypeId));
         } else {
             // Hardcoded metadata to retrieve -- use since we don't have a backend.
-            images.push(this.getCard());
-            images.push(this.getCard());
-            images.push(this.getCard());
-            images.push(this.getCard());
-            images.push(this.getCard());
-            images.push(this.getCard());
+            let i = 0;
+            if (labelTypeId === Constants.curbRampId) {
+                this.getCurbRampsCards(images);
+            } else if (labelTypeId === Constants.missingCurbRampId) {
+                this.getMissingCurbRampsCards(images);
+            } else if (labelTypeId === Constants.noSidewalkId) {
+                this.getNoSidewalkCards(images);
+            } else if (labelTypeId === Constants.obstacleId) {
+                this.getObstacleCards(images);
+            } else if (labelTypeId === Constants.surfaceProblemId) {
+                this.getSurfaceProblemCards(images);
+            }
         }
         return images;
     }
 
-    private getCard(): Card {
+    private getCurbRampsCards(images: Card[]): void {
+        let i = 0;
+        while (i < Constants.maxCards) {
+            images.push(this.getCard("curb-ramp-example.png"));
+            i++;
+        }
+    }
+
+    private getMissingCurbRampsCards(images: Card[]): void {
+        let i = 0;
+        while (i < Constants.maxCards) {
+            images.push(this.getCard("missing-curb-ramp-example.png"));
+            i++;
+        }
+    }
+
+    private getObstacleCards(images: Card[]): void {
+        let i = 0;
+        while (i < Constants.maxCards) {
+            images.push(this.getCard("obstacle-example.png"));
+            i++;
+        }
+    }
+
+    private getSurfaceProblemCards(images: Card[]): void {
+        let i = 0;
+        while (i < Constants.maxCards) {
+            images.push(this.getCard("surface-problem-example.png"));
+            i++;
+        }
+    }
+
+    private getNoSidewalkCards(images: Card[]): void {
+        let i = 0;
+        while (i < Constants.maxCards) {
+            images.push(this.getCard("curb-ramp-example.png"));
+            i++;
+        }
+    }
+
+
+    private getCard(imageUrl: string): Card {
         let card: Card = new Card();
         card.name = "card6";
-        card.imageUrl = "curb-ramp-example.png";
+        card.imageUrl = imageUrl;
         card.severity = 2;
         card.description = "Hello, this is a very very long description for a curb ramp image.";
+        card.tags = ["no friction strips", " not enough landing space"];
         return card;
     }
 }

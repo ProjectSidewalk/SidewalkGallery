@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule, MatListItem } from '@angular/material/list';
 
 import { Card } from './card';
 

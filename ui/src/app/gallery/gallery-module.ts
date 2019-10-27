@@ -1,13 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
 import { GalleryOverview } from './gallery-overview';
-import {GalleryRoot} from './gallery-root';
+import  {GalleryRoot } from './gallery-root';
 import { GalleryService } from '../gallery-service';
 
-import {AppComponent} from '../app.component';
+import { AppComponent } from '../app.component';
 import { AppHttpInterceptorService } from '../http-interceptor.service';
 import { GalleryCard } from '../cards/gallery-card';
 
@@ -29,6 +30,7 @@ import { GalleryCard } from '../cards/gallery-card';
       headerName: 'Csrf-Token',
     }),
     MatCardModule,
+    MatListModule,
   ],
   providers: [
     GalleryService,

@@ -1,24 +1,28 @@
 <mat-card class="gallery-card">
     <div class="gallery-card-outer-container">
         <div class="gallery-card-inner-container">
-            <mat-card-title>{{name}}</mat-card-title>
+            <!-- Title for this card. Helpful for debugging purposes, although we probably don't need
+                 to launch cards with titles in production. -->
+            <!-- <mat-card-title>{{name}}</mat-card-title> -->
             <div class="image-container">
                 <!-- Hard-coding image paths for cards. Should be changed to actual url later. -->
                 <img class="gallery-image" src="/assets/{{imageUrl}}"/>
             </div>
             <div class="metadata-container">
-                <div class="gallery-metadata">
-                    <div class="metadata-description">Severity: </div>
-                    <div class="metadata-content">{{severity}}</div>
-                </div>
-                <div class="gallery-metadata">
-                    <div class="metadata-description">Description: </div>
-                    <div class="metadata-content">{{description}}</div>
-                </div>
-                <div class="gallery-metadata">
-                    <div class="metadata-description">Tags: </div>
-                    <div class="metadata-content">{{tags}}</div>
-                </div>
+                <mat-list class="metadata-list">
+                    <mat-list-item class="metadata-item-inline">
+                        <div class="metadata-description">Severity: </div>
+                        <div class="metadata-content">{{severity}}</div>
+                    </mat-list-item>
+                    <mat-list-item *ngIf="description" class="metadata-item-col">
+                        <div class="metadata-description">Description</div>
+                        <div class="metadata-content">{{description}}</div>
+                    </mat-list-item>
+                    <mat-list-item *ngIf="tags" class="metadata-item-col">
+                        <div class="metadata-description">Tags</div>
+                        <div class="metadata-content">{{tags}}</div>
+                    </mat-list-item>
+                </mat-list>
             </div>
         </div>
     </div>

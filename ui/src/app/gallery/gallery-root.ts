@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
+import { Constants } from '../constants';
+
 import { GalleryService } from '../gallery-service';
 import { Card } from '../cards/card';
-import { GalleryOverview } from './gallery-overview';
 
 /** 
  * The top level-component for a sidewalk gallery. Holds multiple individual label galleries inside.
@@ -14,6 +15,7 @@ import { GalleryOverview } from './gallery-overview';
 })
 export class GalleryRoot {
     title: string | undefined
+    maxCount: number;
     postRequestResponse: string | undefined;
 
     curbCards: Card[] | undefined;
@@ -24,16 +26,16 @@ export class GalleryRoot {
 
     // TODO: Pass in a different service (GalleryService).
     constructor(private galleryService: GalleryService) {
-        console.log("This is the Gallery Component");
+        this.maxCount = 8;
     }
 
     ngOnInit() {
         console.log("initializing");
-        this.curbCards = this.galleryService.getLabelMetadata(1, false);
-        this.missingCurbCards = this.galleryService.getLabelMetadata(2, false);
-        this.surfaceProbCards = this.galleryService.getLabelMetadata(3, false);
-        this.obstacleCards = this.galleryService.getLabelMetadata(4, false);
-        this.missingSidewalkCards = this.galleryService.getLabelMetadata(7, false);
+        this.curbCards = this.galleryService.getLabelMetadata(Constants.curbRampId, this.maxCount, false);
+        this.missingCurbCards = this.galleryService.getLabelMetadata(Constants.missingCurbRampId, this.maxCount, false);
+        this.surfaceProbCards = this.galleryService.getLabelMetadata(Constants.surfaceProblemId, this.maxCount, false);
+        this.obstacleCards = this.galleryService.getLabelMetadata(Constants.obstacleId, this.maxCount, false);
+        this.missingSidewalkCards = this.galleryService.getLabelMetadata(Constants.missingCurbRampId, this.maxCount, false);
     }
 
     /**

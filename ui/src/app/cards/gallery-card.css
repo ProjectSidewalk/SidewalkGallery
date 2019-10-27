@@ -9,6 +9,28 @@
     margin-left: 10px;
 }
 
+::ng-deep mat-list.metadata-list mat-list-item.metadata-item-inline {
+    height: 100%;
+    flex-direction: row;
+    padding-bottom: 10px;
+}
+
+::ng-deep mat-list.metadata-list mat-list-item.metadata-item-inline .mat-list-item-content {
+    padding: 0px 4px;
+}
+
+::ng-deep mat-list.metadata-list mat-list-item.metadata-item-col {
+    height: 100%;
+    padding-bottom: 10px;
+}
+
+::ng-deep mat-list.metadata-list mat-list-item.metadata-item-col .mat-list-item-content {
+    align-items: baseline;
+    flex-direction: column;
+    height: auto;
+    padding: 0px 4px;
+}
+
 .gallery-card-inner-container img.gallery-image {
     width: 100%;
 }

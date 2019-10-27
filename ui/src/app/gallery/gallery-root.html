@@ -1,11 +1,22 @@
 <gallery-overview 
     [title]="'Curb Ramps'"
     [cards]=this.curbCards>
-    This is the curb ramp gallery!!
 </gallery-overview>
-
-This is the gallery!
-
-Helloooo
+<gallery-overview 
+    [title]="'Missing Curb Ramps'"
+    [cards]=this.missingCurbCards>
+</gallery-overview>
+<gallery-overview 
+    [title]="'Surface Problems'"
+    [cards]=this.surfaceProbCards>
+</gallery-overview>
+<gallery-overview 
+    [title]="'Obstacle in Path'"
+    [cards]=this.obstacleCards>
+</gallery-overview>
+<gallery-overview 
+    [title]="'Missing Sidewalk'"
+    [cards]=this.missingSidewalkCards>
+</gallery-overview>
 
 <button (click)=postData()>Click me!</button>

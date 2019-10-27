@@ -1,4 +1,13 @@
+.gallery-overview-container {
+    margin-top: 50px;
+}
+
+.gallery-title {
+    text-align: center;
+}
+
 .image-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
 }
