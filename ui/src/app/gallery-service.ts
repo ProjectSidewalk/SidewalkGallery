@@ -39,7 +39,9 @@ export class GalleryService {
 
     /**
      * Retrieves all the metadata for the images associated with some label id.˜
-     * @param labelTypeId 
+     * @param labelTypeId The label type to fetch metadata from
+     * @param maxCards    Maximum number of card results to fetch
+     * @param prod        Whether we should use production data or not.
      */
     public getLabelMetadata(labelTypeId: number, maxCards: number, prod: boolean): Card[] {
         let images: Card[] = [];
@@ -64,6 +66,14 @@ export class GalleryService {
         return images;
     }
 
+    ///////////////////////
+    // Helper stub functions to generate temporary data for SidewalkGallery.
+    ///////////////////////
+
+    /**
+     * Gets curb ramp cards.
+     * @param images 
+     */
     private getCurbRampsCards(images: Card[]): void {
         let i = 0;
         while (i < Constants.maxCards) {
