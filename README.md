@@ -24,10 +24,17 @@ To run the interactive terminal:
 docker exec -it "postgis" bin/bash
 ```
 
-To get into `psql`:
+To create a database
 ```
-psql -h localhost -U docker -p 5432 -l
+createdb gallery -T template0 -U docker -h localhost
 ```
+
+To get into `psql` for sidewalk gallery:
+```
+psql -h localhost -U docker -p 5432 [database name here]
+```
+
+
 
 # Scala Play Angular Seed Notes
 
