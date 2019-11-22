@@ -1,6 +1,35 @@
-[![MIT License][license-badge]][LICENSE]
+# Sidewalk Gallery Notes
+## Dependencies
+* Docker (2.1.0.5)
+* [Node.js](https://nodejs.org/) (version 10 or higher)
+* [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (recommend version 1.8 or higher)
+* [scala](https://www.scala-lang.org/download/)
 
-# Scala Play Angular Seed
+## Setup Instructions
+
+### Frontend (Angular / Scala)
+The front-end just requires us to run Scala. 
+```
+sbt run
+```
+
+### Backend
+```
+docker build -t "sidewalkgallery_db" .
+sudo docker run --name "postgis" -p 25432:5432 -d -t "sidewalkgallery_db"
+```
+
+To run the interactive terminal:
+```
+docker exec -it "postgis" bin/bash
+```
+
+To get into `psql`:
+```
+psql -h localhost -U docker -p 5432 -l
+```
+
+# Scala Play Angular Seed Notes
 
 > Use play framework to develop the web application backend/services and frontend using Angular CLI, all in a totally integrated workflow and single unified console. This approach will deliver perfect development experience without CORS hassle. 
 
@@ -166,36 +195,3 @@ GET        /*file        controllers.FrontendController.assetOrDefault(file)
 ```
 
 **Note: _On production build all the front end Angular build artifacts will be copied to the `public/ui` folder._**
-
-## Can be used to implement any front end/ui build!
-
-* Simply replace the ui directory with the build of your choice
-* Make output directory ROOT/public/
-* Implement a proxy to localhost:9000
-
-## Looking for some other frontend framework or language choice
-
-* [Java Play Angular Seed](https://github.com/yohangz/java-play-angular-seed)
-* [Scala Play React Seed](https://github.com/yohangz/scala-play-react-seed)
-* [Java Play React Seed](https://github.com/yohangz/java-play-react-seed)
-* [Scala Play Vuejs Seed](https://github.com/duncannevin/scala-play-vue-seed) by [Duncan Nevin](https://github.com/duncannevin)
-* [Java Play Vuejs Seed](https://github.com/duncannevin/java-play-vue-seed) by [Duncan Nevin](https://github.com/duncannevin)
-
-## Contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-|[<img src="https://avatars2.githubusercontent.com/u/5279079?s=400&v=4" width="100px;"/><br /><sub>Yohan Gomez</sub>][yohan-profile]| [<img src="https://avatars2.githubusercontent.com/u/6312524?s=400&u=efc9267c6f903c379fafaaf7b3b0d9a939474c01&v=4" width="100px;"/><br /><sub>Lahiru Jayamanna</sub>][lahiru-profile]<br />| [<img src="https://avatars0.githubusercontent.com/u/3881403?s=400&v=4" width="100px;"/><br /><sub>Gayan Attygalla</sub>](https://github.com/Arty26)| [<img src="https://avatars0.githubusercontent.com/u/24251976?s=400&v=4" width="100px;"/><br /><sub>Anuradha Gunasekara</sub>][anuradha-profile]|
-| :---: | :---: | :---: | :---: |
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-## License
-
-This software is licensed under the MIT license
-
-[license-badge]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
-[license]: https://github.com/yohangz/scala-play-angular-seed/blob/master/LICENSE
-
-[yohan-profile]: https://github.com/yohangz
-[lahiru-profile]: https://github.com/lahiruz
-[gayan-profile]: https://github.com/Arty26
-[anuradha-profile]: https://github.com/sanuradhag
