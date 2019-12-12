@@ -5,7 +5,7 @@ import { Constants } from '../constants';
 import { GalleryService } from '../gallery-service';
 import { Card } from '../cards/card';
 
-/** 
+/**
  * The top level-component for a sidewalk gallery. Holds multiple individual label galleries inside.
  */
 @Component({
@@ -14,7 +14,7 @@ import { Card } from '../cards/card';
     styleUrls: ['./gallery-root.css']
 })
 export class GalleryRoot {
-    title: string | undefined
+    title: string | undefined;
     maxCount: number;
     postRequestResponse: string | undefined;
 

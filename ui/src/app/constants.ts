@@ -7,4 +7,7 @@ export class Constants {
 
     /** The maximum cards to display in a gallery overview. */
     static readonly maxCards: number = 6;
+
+    /** Routing URLs */
+    static readonly curbRampAPI: string = '/api/curbramp/';
 }
