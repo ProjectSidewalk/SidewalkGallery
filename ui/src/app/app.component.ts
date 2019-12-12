@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AppService } from './app.service';
+import { GalleryService } from './gallery-service';
 
 @Component({
   selector: 'app-root',
@@ -11,18 +11,19 @@ export class AppComponent {
   title: string | undefined;
   postRequestResponse: string | undefined;
 
-  constructor(private appService: AppService) {
-    this.appService.getWelcomeMessage().subscribe((data: any) => {
+  constructor(private galleryService: GalleryService) {
+    this.galleryService.getWelcomeMessage().subscribe((data: any) => {
       this.title = data.content;
     });
   }
 
-  /**
-   * This method is used to test the post request
-   */
-  public postData(): void {
-    this.appService.sendData().subscribe((data: any) => {
-      this.postRequestResponse = data.content;
-    });
-  }
+  // /**
+  //  * This method is used to test the post request
+  //  */
+  // public postData(): void {
+  //   console.log("Posting data!!");
+  //   this.galleryService.sendData().subscribe((data: any) => {
+  //     this.postRequestResponse = data.content;
+  //   });
+  // }
 }

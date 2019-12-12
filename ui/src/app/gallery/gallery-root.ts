@@ -24,13 +24,12 @@ export class GalleryRoot {
     obstacleCards: Card[] | undefined;
     missingSidewalkCards: Card[] | undefined;
 
-    // TODO: Pass in a different service (GalleryService).
     constructor(private galleryService: GalleryService) {
         this.maxCount = 8;
     }
 
     ngOnInit() {
-        console.log("initializing");
+        console.log("[gallery-root] initializing");
         this.curbCards = this.galleryService.getLabelMetadata(Constants.curbRampId, this.maxCount, false);
         this.missingCurbCards = this.galleryService.getLabelMetadata(Constants.missingCurbRampId, this.maxCount, false);
         this.surfaceProbCards = this.galleryService.getLabelMetadata(Constants.surfaceProblemId, this.maxCount, false);
@@ -42,8 +41,8 @@ export class GalleryRoot {
      * This method is used to test the post request
      */
     public postData(): void {
-        console.log("Posting data");
-        this.galleryService.sendData().subscribe((data: any) => {
+        console.log("[gallery-root] Posting data");
+        this.galleryService.sendData(this.curbCards![0]).subscribe((data: any) => {
             this.postRequestResponse = data.content;
         });
     }

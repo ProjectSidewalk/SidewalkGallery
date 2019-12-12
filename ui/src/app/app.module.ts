@@ -8,6 +8,7 @@ import { AppHttpInterceptorService } from './http-interceptor.service';
 import { AppComponent } from './app.component';
 
 import { AppService } from './app.service';
+import {GalleryService} from './gallery-service';
 import { GalleryModule } from './gallery/gallery-module';
 
 import {GalleryRoot} from './gallery/gallery-root';
@@ -62,7 +63,7 @@ const routes: Routes = [
     BrowserAnimationsModule
   ],
   providers: [
-    AppService,
+    GalleryService,
     {
       multi: true,
       provide: HTTP_INTERCEPTORS,

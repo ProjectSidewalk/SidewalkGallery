@@ -33,7 +33,10 @@ export class GalleryService {
     /**
      * Makes a http post request to send some data to backend & get response.
      */
-    public sendData(): Observable<any> {
+    public sendData(card: Card): Observable<any> {
+        console.log("[gallery-service] Sending post request to " + this.dataPostTestUrl);
+        console.log("[gallery-service] Sending card");
+        console.log(card);
         return this.http.post(this.dataPostTestUrl, {});
     }
 

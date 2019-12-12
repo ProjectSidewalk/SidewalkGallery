@@ -17,6 +17,5 @@ export class GalleryOverview {
   
   constructor() {
     this.maxItems = 16;
-    
   }
 }
