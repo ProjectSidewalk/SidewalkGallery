@@ -41,9 +41,7 @@ export class GalleryRoot {
      * This method is used to test the post request
      */
     public postData(): void {
-        console.log("[gallery-root] Posting data");
-        this.galleryService.sendData(this.curbCards![0]).subscribe((data: any) => {
-            this.postRequestResponse = data.content;
-        });
+        console.log("[gallery-root] Testing curb ramp request");
+        this.galleryService.testHttpCurbRampRequest();
     }
 }

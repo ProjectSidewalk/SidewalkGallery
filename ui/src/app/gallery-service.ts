@@ -74,16 +74,18 @@ export class GalleryService {
   // Helper stub functions to generate temporary data for SidewalkGallery.
   ///////////////////////
 
+  testHttpCurbRampRequest(): void {
+    this.http.get(Constants.curbRampAPI + "10")
+      .subscribe(
+        results => console.log(results)
+      );
+  }
+
   /**
    * Gets curb ramp cards.
    * @param images
    */
   private getCurbRampsCards(images: Card[]): void {
-    this.http.get(Constants.curbRampAPI + "10")
-      .subscribe(
-                results => console.log(results)
-      );
-
     // Fake data
     let i = 0;
     while (i < Constants.maxCards) {

@@ -2,10 +2,10 @@ package models.utils
 
 import com.github.tminglei.slickpg._
 import play.api.libs.json.{JsValue, Json}
-import slick.driver.JdbcProfile
-// import slick.jdbc.PostgresProfile.JdbcTypes
-import slick.profile.Capability
-// import slick.basic.Capability
+import slick.jdbc.JdbcCapabilities
+// import slick.driver.JdbcProfile
+// import slick.profile.Capability
+import slick.basic.Capability
 import slick.jdbc.PostgresProfile
 
 trait MyPostgresProfile extends PostgresProfile
@@ -22,7 +22,7 @@ trait MyPostgresProfile extends PostgresProfile
 
   // Add back `capabilities.insertOrUpdate` to enable native `upsert` support; for postgres 9.5+
   override protected def computeCapabilities: Set[Capability] =
-    super.computeCapabilities + JdbcProfile.capabilities.insertOrUpdate
+    super.computeCapabilities + JdbcCapabilities.insertOrUpdate
 
   override val api = MyAPI
 

@@ -17,4 +17,6 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     println("[HomeController.scala] is this working?")
     Ok(Json.obj("content" -> "Post Request Test => Data Sending Success"))
   }
+
+
 }

@@ -1,11 +1,19 @@
 logs
+
+# Scala
 target
+
+# IntelliJ specific things
 /.idea
 /.idea_modules
+app/.idea
+
+# Project configuration?
 /.classpath
 /.project
 /.settings
 /RUNNING_PID
 /public
 
-app/.idea
+# API Key for Google Maps
+google_maps_api_key.txt
