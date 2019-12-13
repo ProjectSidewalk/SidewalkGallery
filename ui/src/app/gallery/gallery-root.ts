@@ -15,19 +15,22 @@ import {Subscription} from "rxjs";
     styleUrls: ['./gallery-root.css']
 })
 export class GalleryRoot {
-    title: string | undefined;
-    maxCount: number;
-    postRequestResponse: string | undefined;
+  title: string | undefined;
+  maxCount: number;
 
-    curbCards: Card[] | undefined;
-    missingCurbCards: Card[] | undefined;
-    surfaceProbCards: Card[] | undefined;
-    obstacleCards: Card[] | undefined;
-    missingSidewalkCards: Card[] | undefined;
+  curbCards: Card[] = [];
+  missingCurbCards: Card[] = [];
+  surfaceProbCards: Card[] = [];
+  obstacleCards: Card[] = [];
+  noSidewalkCards: Card[] = [];
 
-    private curbRampSubscription: Subscription|undefined;
+  private curbRampSubscription: Subscription|undefined;
+  private missingCurbRampSubscription: Subscription|undefined;
+  private obstacleSubscription: Subscription|undefined;
+  private sfcpSubscription: Subscription|undefined;
+  private noSidewalkSubscription: Subscription|undefined;
 
-    constructor(private galleryService: GalleryService) {
+  constructor(private galleryService: GalleryService) {
         this.maxCount = 8;
     }
 
@@ -37,17 +40,32 @@ export class GalleryRoot {
 
     ngOnInit() {
         console.log("[gallery-root] initializing");
-        this.curbCards = this.galleryService.curbCards;
-        // this.curbCards = this.galleryService.getLabelMetadata(Constants.curbRampId, this.maxCount, false);
-        this.missingCurbCards = this.galleryService.getLabelMetadata(Constants.missingCurbRampId, this.maxCount, false);
-        this.surfaceProbCards = this.galleryService.getLabelMetadata(Constants.surfaceProblemId, this.maxCount, false);
-        this.obstacleCards = this.galleryService.getLabelMetadata(Constants.obstacleId, this.maxCount, false);
-        this.missingSidewalkCards = this.galleryService.getLabelMetadata(Constants.missingCurbRampId, this.maxCount, false);
+
+      this.curbRampSubscription = this.galleryService.getCurbRamps().subscribe(
+        result => {
+          this.curbCards = result.map(x => this.jsonToCards(x))
+        });
+
+      this.missingCurbRampSubscription = this.galleryService.getMissingCurbRamps().subscribe(
+        result => {
+          this.missingCurbCards = result.map(x => this.jsonToCards(x))
+        });
+
+      this.obstacleSubscription = this.galleryService.getObstacles().subscribe(
+        result => {
+          this.obstacleCards = result.map(x => this.jsonToCards(x))
+        });
+
+      this.sfcpSubscription = this.galleryService.getSurfaceProblems().subscribe(
+        result => {
+          this.surfaceProbCards = result.map(x => this.jsonToCards(x))
+        });
 
 
-        this.curbRampSubscription = this.galleryService.labelQuery(
-          Constants.curbRampAPI, this.maxCount).subscribe(
-          result => {this.curbCards = result.map(x => this.jsonToCards(x))});
+      this.noSidewalkSubscription = this.galleryService.getNoSidewalk().subscribe(
+        result => {
+          this.noSidewalkCards = result.map(x => this.jsonToCards(x))
+        });
 
   }
 

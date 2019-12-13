@@ -95,94 +95,33 @@ export class GalleryService {
   ///////////////////////
   // Helper stub functions to generate temporary data for SidewalkGallery.
   ///////////////////////
-  public labelQuery(url: String, count: Number): Observable<CardInterface[]> {
+  private labelQuery(url: String, count: Number): Observable<CardInterface[]> {
     return this.http.get<CardInterface[]>(url + count.toString(10))
-  }
-
-  private getLabels(url: String, count: Number): Card[] {
-    let cards: Card[] = [];
-    this.http.get<CardInterface[]>(url + count.toString(10))
-      .subscribe(
-        (data: CardInterface[]) => {
-          this.responseCards = data;
-          console.log("[GalleryService] getLabels");
-          console.log(this.responseCards);
-          cards = this.responseCards.map(this.jsonToCards);
-          this.curbCards = cards;
-        }
-      );
-    return cards;
-  }
-
-  private jsonToCards(json: CardInterface): Card {
-    return new Card(json);
   }
 
   /**
    * Gets curb ramp cards.
    * @param images
    */
-  private getCurbRampsCards(): Card[] {
-    let cards: Card[] = this.getLabels(Constants.curbRampAPI, 10);
-    console.log("[GalleryService] getCurbRampsCards");
-    console.log(cards);
-
-    // Fake data
-    // let images: Card[] = [];
-    // let i = 0;
-    // while (i < Constants.maxCards) {
-    //   images.push(this.getCard("curb-ramp-example.png"));
-    //   i++;
-    // }
-    return cards;
+  public getCurbRamps(): Observable<CardInterface[]> {
+    return this.labelQuery(Constants.curbRampAPI, 10);
   }
 
-  private getMissingCurbRampsCards(): Card[] {
-    let cards: Card[] = this.getLabels(Constants.curbRampAPI, 10);
-    return cards;
-    // let images: Card[] = [];
-    // let i = 0;
-    // while (i < Constants.maxCards) {
-    //   images.push(this.getCard("missing-curb-ramp-example.png"));
-    //   i++;
-    // }
-    // return images;
+  public getMissingCurbRamps(): Observable<CardInterface[]> {
+    return this.labelQuery(Constants.missingCurbRampAPI, 10);
   }
 
-  private getObstacleCards(): Card[] {
-    let cards: Card[] = this.getLabels(Constants.curbRampAPI, 10);
-    return cards;
-    // let images: Card[] = [];
-    // let i = 0;
-    // while (i < Constants.maxCards) {
-    //   images.push(this.getCard("obstacle-example.png"));
-    //   i++;
-    // }
-    // return images;
+  public getObstacles(): Observable<CardInterface[]> {
+    return this.labelQuery(Constants.obstacleAPI, 10);
   }
 
-  private getSurfaceProblemCards(): Card[] {
-    let cards: Card[] = this.getLabels(Constants.curbRampAPI, 10);
-    return cards;
-    // let images: Card[] = [];
-    // let i = 0;
-    // while (i < Constants.maxCards) {
-    //   images.push(this.getCard("surface-problem-example.png"));
-    //   i++;
-    // }
-    // return images;
+
+  public getSurfaceProblems(): Observable<CardInterface[]> {
+    return this.labelQuery(Constants.surfaceProblemAPI, 10);
   }
 
-  private getNoSidewalkCards(): Card[] {
-    let cards: Card[] = this.getLabels(Constants.curbRampAPI, 10);
-    return cards;
-    // let images: Card[] = [];
-    // let i = 0;
-    // while (i < Constants.maxCards) {
-    //   images.push(this.getCard("curb-ramp-example.png"));
-    //   i++;
-    // }
-    // return images;
+  public getNoSidewalk(): Observable<CardInterface[]> {
+    return this.labelQuery(Constants.noSidewalkAPI, 10);
   }
 
 
