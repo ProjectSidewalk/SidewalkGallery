@@ -41,6 +41,8 @@ export class GalleryService {
 
   private responseCards: CardInterface[] = [];
 
+  curbCards: Card[] = [];
+
   constructor(private http: HttpClient) { }
 
   /**
@@ -93,7 +95,9 @@ export class GalleryService {
   ///////////////////////
   // Helper stub functions to generate temporary data for SidewalkGallery.
   ///////////////////////
-
+  public labelQuery(url: String, count: Number): Observable<CardInterface[]> {
+    return this.http.get<CardInterface[]>(url + count.toString(10))
+  }
 
   private getLabels(url: String, count: Number): Card[] {
     let cards: Card[] = [];
@@ -104,6 +108,7 @@ export class GalleryService {
           console.log("[GalleryService] getLabels");
           console.log(this.responseCards);
           cards = this.responseCards.map(this.jsonToCards);
+          this.curbCards = cards;
         }
       );
     return cards;
