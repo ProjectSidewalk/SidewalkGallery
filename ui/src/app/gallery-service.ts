@@ -64,34 +64,6 @@ export class GalleryService {
     return this.http.post(this.dataPostTestUrl, {});
   }
 
-  /**
-   * Retrieves all the metadata for the images associated with some label id.˜
-   * @param labelTypeId The label type to fetch metadata from
-   * @param maxCards    Maximum number of card results to fetch
-   * @param prod        Whether we should use production data or not.
-   */
-  public getLabelMetadata(labelTypeId: number, maxCards: number, prod: boolean): Card[] {
-    if (prod) {
-      // Queries endpoints to retrieve metadata for this image type.
-      console.log(this.http.post(this.labelMetadataUrl, labelTypeId));
-    } else {
-      // Hardcoded metadata to retrieve -- use since we don't have a backend.
-      if (labelTypeId === Constants.curbRampId) {
-          return this.getCurbRampsCards();
-      } else if (labelTypeId === Constants.missingCurbRampId) {
-          return this.getMissingCurbRampsCards();
-      } else if (labelTypeId === Constants.noSidewalkId) {
-          return this.getNoSidewalkCards();
-      } else if (labelTypeId === Constants.obstacleId) {
-          return this.getObstacleCards();
-      } else if (labelTypeId === Constants.surfaceProblemId) {
-          return this.getSurfaceProblemCards();
-      }
-    }
-    let images: Card[] = [];
-    return images;
-  }
-
   ///////////////////////
   // Helper stub functions to generate temporary data for SidewalkGallery.
   ///////////////////////
