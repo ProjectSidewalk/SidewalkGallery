@@ -8,10 +8,23 @@ import { Constants } from './constants';
 
 import { Card } from './cards/card';
 
-export interface Card {
-  canvasHeight: Number,
-  canvasWidth: Number,
+export interface CardInterface {
+  canvas_height: number;
+  canvas_width: number;
+  canvas_x: number;
+  canvas_y: number;
+  description: string;
+  heading: number;
+  image_url: string;         // Should use a SafeURL
+  gsv_panorama_id: string;
+  label_id: number;
+  label_type_id: number;
+  pitch: number;
+  severity: number;
+  zoom: number;
 
+  // name: string;
+  // tags: string[];
 }
 
 /**
@@ -25,6 +38,8 @@ export class GalleryService {
   private serviceUrl = '/api/summary';
   private dataPostTestUrl = '/api/postTest';
   private labelMetadataUrl = '/api/labelMetadata/';
+
+  private responseCards: CardInterface[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -80,16 +95,22 @@ export class GalleryService {
   ///////////////////////
 
 
-  private getLabels(url: String, count: Number): void {
-    this.http.get(url + count.toString(10))
-      .subscribe(results => {
-        // let jsonString: string = JSON.parse(results.toString());
-        console.log(results);
-        let string: String = "";
-        for (string in results) {
-          console.log(string);
+  private getLabels(url: String, count: Number): Card[] {
+    let cards: Card[] = [];
+    this.http.get<CardInterface[]>(url + count.toString(10))
+      .subscribe(
+        (data: CardInterface[]) => {
+          this.responseCards = data;
+          console.log("[GalleryService] getLabels");
+          console.log(this.responseCards);
+          cards = this.responseCards.map(this.jsonToCards);
         }
-      });
+      );
+    return cards;
+  }
+
+  private jsonToCards(json: CardInterface): Card {
+    return new Card(json);
   }
 
   /**
@@ -97,66 +118,76 @@ export class GalleryService {
    * @param images
    */
   private getCurbRampsCards(): Card[] {
-    this.getLabels(Constants.curbRampAPI, 10);
+    let cards: Card[] = this.getLabels(Constants.curbRampAPI, 10);
+    console.log("[GalleryService] getCurbRampsCards");
+    console.log(cards);
 
     // Fake data
-    let images: Card[] = [];
-    let i = 0;
-    while (i < Constants.maxCards) {
-      images.push(this.getCard("curb-ramp-example.png"));
-      i++;
-    }
-    return images;
+    // let images: Card[] = [];
+    // let i = 0;
+    // while (i < Constants.maxCards) {
+    //   images.push(this.getCard("curb-ramp-example.png"));
+    //   i++;
+    // }
+    return cards;
   }
 
   private getMissingCurbRampsCards(): Card[] {
-    let images: Card[] = [];
-    let i = 0;
-    while (i < Constants.maxCards) {
-      images.push(this.getCard("missing-curb-ramp-example.png"));
-      i++;
-    }
-    return images;
+    let cards: Card[] = this.getLabels(Constants.curbRampAPI, 10);
+    return cards;
+    // let images: Card[] = [];
+    // let i = 0;
+    // while (i < Constants.maxCards) {
+    //   images.push(this.getCard("missing-curb-ramp-example.png"));
+    //   i++;
+    // }
+    // return images;
   }
 
   private getObstacleCards(): Card[] {
-    let images: Card[] = [];
-    let i = 0;
-    while (i < Constants.maxCards) {
-      images.push(this.getCard("obstacle-example.png"));
-      i++;
-    }
-    return images;
+    let cards: Card[] = this.getLabels(Constants.curbRampAPI, 10);
+    return cards;
+    // let images: Card[] = [];
+    // let i = 0;
+    // while (i < Constants.maxCards) {
+    //   images.push(this.getCard("obstacle-example.png"));
+    //   i++;
+    // }
+    // return images;
   }
 
   private getSurfaceProblemCards(): Card[] {
-    let images: Card[] = [];
-    let i = 0;
-    while (i < Constants.maxCards) {
-      images.push(this.getCard("surface-problem-example.png"));
-      i++;
-    }
-    return images;
+    let cards: Card[] = this.getLabels(Constants.curbRampAPI, 10);
+    return cards;
+    // let images: Card[] = [];
+    // let i = 0;
+    // while (i < Constants.maxCards) {
+    //   images.push(this.getCard("surface-problem-example.png"));
+    //   i++;
+    // }
+    // return images;
   }
 
   private getNoSidewalkCards(): Card[] {
-    let images: Card[] = [];
-    let i = 0;
-    while (i < Constants.maxCards) {
-      images.push(this.getCard("curb-ramp-example.png"));
-      i++;
-    }
-    return images;
+    let cards: Card[] = this.getLabels(Constants.curbRampAPI, 10);
+    return cards;
+    // let images: Card[] = [];
+    // let i = 0;
+    // while (i < Constants.maxCards) {
+    //   images.push(this.getCard("curb-ramp-example.png"));
+    //   i++;
+    // }
+    // return images;
   }
 
 
-  private getCard(imageUrl: string): Card {
-    let card: Card = new Card();
-    card.name = "card6";
-    card.imageUrl = imageUrl;
-    card.severity = 2;
-    card.description = "Hello, this is a very very long description for a curb ramp image.";
-    card.tags = ["no friction strips", " not enough landing space"];
-    return card;
-  }
+  // private getCard(imageUrl: string): Card {
+  //   let card: Card = new Card();
+  //   card.name = "card6";
+  //   card.imageUrl = imageUrl;
+  //   card.severity = 2;
+  //   card.description = "Hello, this is a very very long description for a curb ramp image.";
+  //   card.tags = ["no friction strips", " not enough landing space"];
+  //   return card;
+  // }
 }

@@ -14,8 +14,12 @@ export class GalleryOverview {
   @Input() cards: Card[] | undefined;
   @Input() title: string | undefined;
   maxItems: number;
-  
+
   constructor() {
     this.maxItems = 16;
+  }
+
+  private printCards(): void {
+    console.log(this.cards);
   }
 }
