@@ -8,6 +8,12 @@ import { Constants } from './constants';
 
 import { Card } from './cards/card';
 
+export interface Card {
+  canvasHeight: Number,
+  canvasWidth: Number,
+
+}
+
 /**
  * Class that handles the transfer of data between Angular and Scala.
  *
@@ -15,7 +21,7 @@ import { Card } from './cards/card';
  */
 @Injectable()
 export class GalleryService {
-  // TODO: move to constants
+  // TODO(@aileenzeng): move to constants
   private serviceUrl = '/api/summary';
   private dataPostTestUrl = '/api/postTest';
   private labelMetadataUrl = '/api/labelMetadata/';
@@ -48,25 +54,24 @@ export class GalleryService {
    * @param prod        Whether we should use production data or not.
    */
   public getLabelMetadata(labelTypeId: number, maxCards: number, prod: boolean): Card[] {
-    let images: Card[] = [];
     if (prod) {
       // Queries endpoints to retrieve metadata for this image type.
       console.log(this.http.post(this.labelMetadataUrl, labelTypeId));
     } else {
       // Hardcoded metadata to retrieve -- use since we don't have a backend.
-      let i = 0;
       if (labelTypeId === Constants.curbRampId) {
-          this.getCurbRampsCards(images);
+          return this.getCurbRampsCards();
       } else if (labelTypeId === Constants.missingCurbRampId) {
-          this.getMissingCurbRampsCards(images);
+          return this.getMissingCurbRampsCards();
       } else if (labelTypeId === Constants.noSidewalkId) {
-          this.getNoSidewalkCards(images);
+          return this.getNoSidewalkCards();
       } else if (labelTypeId === Constants.obstacleId) {
-          this.getObstacleCards(images);
+          return this.getObstacleCards();
       } else if (labelTypeId === Constants.surfaceProblemId) {
-          this.getSurfaceProblemCards(images);
+          return this.getSurfaceProblemCards();
       }
     }
+    let images: Card[] = [];
     return images;
   }
 
@@ -74,56 +79,74 @@ export class GalleryService {
   // Helper stub functions to generate temporary data for SidewalkGallery.
   ///////////////////////
 
-  testHttpCurbRampRequest(): void {
-    this.http.get(Constants.curbRampAPI + "10")
-      .subscribe(
-        results => console.log(results)
-      );
+
+  private getLabels(url: String, count: Number): void {
+    this.http.get(url + count.toString(10))
+      .subscribe(results => {
+        // let jsonString: string = JSON.parse(results.toString());
+        console.log(results);
+        let string: String = "";
+        for (string in results) {
+          console.log(string);
+        }
+      });
   }
 
   /**
    * Gets curb ramp cards.
    * @param images
    */
-  private getCurbRampsCards(images: Card[]): void {
+  private getCurbRampsCards(): Card[] {
+    this.getLabels(Constants.curbRampAPI, 10);
+
     // Fake data
+    let images: Card[] = [];
     let i = 0;
     while (i < Constants.maxCards) {
       images.push(this.getCard("curb-ramp-example.png"));
       i++;
     }
+    return images;
   }
 
-  private getMissingCurbRampsCards(images: Card[]): void {
+  private getMissingCurbRampsCards(): Card[] {
+    let images: Card[] = [];
     let i = 0;
     while (i < Constants.maxCards) {
       images.push(this.getCard("missing-curb-ramp-example.png"));
       i++;
     }
+    return images;
   }
 
-  private getObstacleCards(images: Card[]): void {
+  private getObstacleCards(): Card[] {
+    let images: Card[] = [];
     let i = 0;
     while (i < Constants.maxCards) {
       images.push(this.getCard("obstacle-example.png"));
       i++;
     }
+    return images;
   }
 
-  private getSurfaceProblemCards(images: Card[]): void {
+  private getSurfaceProblemCards(): Card[] {
+    let images: Card[] = [];
     let i = 0;
     while (i < Constants.maxCards) {
       images.push(this.getCard("surface-problem-example.png"));
       i++;
     }
+    return images;
   }
 
-  private getNoSidewalkCards(images: Card[]): void {
+  private getNoSidewalkCards(): Card[] {
+    let images: Card[] = [];
     let i = 0;
     while (i < Constants.maxCards) {
       images.push(this.getCard("curb-ramp-example.png"));
       i++;
     }
+    return images;
   }
 
 

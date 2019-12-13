@@ -10,4 +10,8 @@ export class Constants {
 
     /** Routing URLs */
     static readonly curbRampAPI: string = '/api/curbramp/';
+    static readonly missingCurbRampAPI: string = '/api/mcr/';
+    static readonly obstacleAPI: string = '/api/obstacle/';
+    static readonly surfaceProblemAPI: string = '/api/sfcp/';
+    static readonly noSidewalkAPI: string = '/api/nosidewalk/';
 }

@@ -42,6 +42,6 @@ export class GalleryRoot {
      */
     public postData(): void {
         console.log("[gallery-root] Testing curb ramp request");
-        this.galleryService.testHttpCurbRampRequest();
+        this.galleryService.getLabelMetadata(Constants.curbRampId, 10, false);
     }
 }
