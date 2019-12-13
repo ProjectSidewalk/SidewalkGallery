@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 
 import { Constants } from '../constants';
 
-import {CardInterface, GalleryService} from '../gallery-service';
+import {CardInterface, GalleryService, TagInterface} from '../gallery-service';
 import { Card } from '../cards/card';
 import {Subscription} from "rxjs";
+import {Tag} from "../cards/tags";
 
 /**
  * The top level-component for a sidewalk gallery. Holds multiple individual label galleries inside.
@@ -24,24 +25,33 @@ export class GalleryRoot {
   obstacleCards: Card[] = [];
   noSidewalkCards: Card[] = [];
 
+  curbTags: Tag[] = [];
+
   private curbRampSubscription: Subscription|undefined;
   private missingCurbRampSubscription: Subscription|undefined;
   private obstacleSubscription: Subscription|undefined;
   private sfcpSubscription: Subscription|undefined;
   private noSidewalkSubscription: Subscription|undefined;
 
+  private curbTagsSubscription: Subscription|undefined;
+
   constructor(private galleryService: GalleryService) {
-        this.maxCount = 8;
-    }
+      this.maxCount = 8;
+  }
 
-    private jsonToCards(json: CardInterface): Card {
-      return new Card(json);
-    }
+  ngOnInit() {
+    console.log("[gallery-root] initializing");
+    this.addSubscriptions();
 
-    ngOnInit() {
-      console.log("[gallery-root] initializing");
-      this.addSubscriptions();
+  }
 
+
+  private jsonToCards(json: CardInterface): Card {
+    return new Card(json);
+  }
+
+  private jsonToTags(json: TagInterface): Tag {
+    return new Tag(json);
   }
 
   /**
@@ -74,5 +84,9 @@ export class GalleryRoot {
         this.noSidewalkCards = result.map(x => this.jsonToCards(x))
       });
 
+    this.curbTagsSubscription = this.galleryService.getTags(1).subscribe(
+      result => {
+        this.curbTags = result.map(x => this.jsonToTags(x))
+      });
   }
 }

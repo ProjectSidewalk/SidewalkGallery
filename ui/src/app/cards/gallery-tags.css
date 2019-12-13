@@ -1,0 +1,11 @@
+.gallery-tag {
+  margin-right: 10px;
+}
+
+.selected {
+  background-color: #e8f0fe;
+}
+
+.unselected {
+  background-color: white;
+}

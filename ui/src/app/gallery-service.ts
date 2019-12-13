@@ -27,6 +27,12 @@ export interface CardInterface {
   // tags: string[];
 }
 
+export interface TagInterface {
+  label_type_id: number;
+  tag: string;
+  tag_id: number;
+}
+
 /**
  * Class that handles the transfer of data between Angular and Scala.
  *
@@ -94,6 +100,10 @@ export class GalleryService {
 
   public getNoSidewalk(): Observable<CardInterface[]> {
     return this.labelQuery(Constants.noSidewalkAPI, 10);
+  }
+
+  public getTags(labelTypeId: number): Observable<TagInterface[]> {
+    return this.http.get<TagInterface[]>(Constants.tagsAPI + labelTypeId.toString(10))
   }
 
 

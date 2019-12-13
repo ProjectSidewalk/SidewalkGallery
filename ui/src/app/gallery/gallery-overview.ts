@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Card } from '../cards/card';
+import {Tag} from "../cards/tags";
 
 /**
  * Angular component for the overview of one gallery.
@@ -13,6 +14,7 @@ import { Card } from '../cards/card';
 export class GalleryOverview {
   @Input() cards: Card[] | undefined;
   @Input() title: string | undefined;
+  @Input() tags: Tag[] | undefined;
   maxItems: number;
 
   constructor() {
@@ -21,5 +23,12 @@ export class GalleryOverview {
 
   private printCards(): void {
     console.log(this.cards);
+    console.log(this.tags);
+
+    this.tags!.forEach(tag => {
+      console.log(tag)
+    });
+
+
   }
 }

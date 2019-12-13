@@ -1,0 +1,5 @@
+<button mat-stroked-button class="gallery-tag"
+    (click)="toggle()"
+    [ngClass]="{'selected' : selected, 'unselected': !selected}">
+  {{description}}
+</button>

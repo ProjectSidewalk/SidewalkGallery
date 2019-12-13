@@ -11,6 +11,8 @@ import { GalleryService } from '../gallery-service';
 import { AppComponent } from '../app.component';
 import { AppHttpInterceptorService } from '../http-interceptor.service';
 import { GalleryCard } from '../cards/gallery-card';
+import {GalleryTags} from "../cards/gallery-tags";
+import {MatButtonModule} from "@angular/material/button";
 
 /**
  * Highest level Angular module for SidewalkGallery.
@@ -20,6 +22,7 @@ import { GalleryCard } from '../cards/gallery-card';
   declarations: [
     GalleryCard,
     GalleryRoot,
+    GalleryTags,
     GalleryOverview,
   ],
   imports: [
@@ -31,6 +34,7 @@ import { GalleryCard } from '../cards/gallery-card';
     }),
     MatCardModule,
     MatListModule,
+    MatButtonModule,
   ],
   providers: [
     GalleryService,

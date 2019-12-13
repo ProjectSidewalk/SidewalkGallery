@@ -1,5 +1,10 @@
 <div class="gallery-overview-container">
     <h1 class="gallery-title" (click)="printCards()">{{this.title}}</h1>
+    <div class="tag-container">
+      <div *ngFor="let tag of tags">
+        <gallery-tags [tag]=tag></gallery-tags>
+      </div>
+    </div>
     <div class="image-container">
         <div *ngFor="let card of cards">
             <gallery-card [card]=card></gallery-card>

@@ -2,6 +2,7 @@ package controllers
 
 import javax.inject._
 import models.labels.{Label, LabelQuery}
+import models.tags.{Tag, TagQuery}
 import play.api.libs.json.{JsArray, JsObject}
 import play.api.mvc._
 
@@ -77,6 +78,14 @@ class GalleryOverviewController @Inject()(cc: ControllerComponents) extends Abst
     val labelJson: Seq[JsObject] = labels.map(LabelQuery.toLabelMetadata)
     Future.successful (
       Ok(JsArray(labelJson))
+    )
+  }
+
+  def getTags(labelTypeId: Int): Action[AnyContent] = Action.async {
+    val tags: Seq[Tag] = Await.result(TagQuery.getTags(labelTypeId), Duration(10, "seconds"))
+    val tagsJson: Seq[JsObject] = tags.map(TagQuery.toTagMetadata)
+    Future.successful(
+      Ok(JsArray(tagsJson))
     )
   }
 }
