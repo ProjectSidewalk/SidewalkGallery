@@ -32,7 +32,20 @@
 }
 
 .gallery-card-inner-container img.gallery-image {
+  position: relative;
     width: 100%;
+}
+
+.image-container {
+  position: relative;
+}
+
+.gallery-card-inner-container img.label-icon {
+  width: 10px;
+  top: 68px;
+  left: 110px;
+  z-index: 2;
+  position: absolute;
 }
 
 .gallery-metadata {
