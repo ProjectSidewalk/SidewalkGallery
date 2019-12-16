@@ -1,3 +1,8 @@
+/**
+ * Interface that enforces the data that is retrieved in a CardResponse. Backend responses from the
+ * GalleryService that send back information about Cards must return their data in the shape of a
+ * CardResponse.
+ */
 export interface CardResponse {
   canvas_height: number;
   canvas_width: number;
@@ -17,6 +22,9 @@ export interface CardResponse {
   // tags: string[];
 }
 
+/**
+ * Front-end model representation of a Card.
+ */
 export class Card {
     canvasHeight: number;
     canvasWidth: number;
@@ -36,7 +44,11 @@ export class Card {
     name: string|undefined;
     tags: string[]|undefined;
 
-    constructor (cardInterface: CardResponse) {
+  /**
+   * Converts from a response to a Card object.
+   * @param cardInterface
+   */
+  constructor (cardInterface: CardResponse) {
       this.canvasHeight = cardInterface.canvas_height;
       this.canvasWidth = cardInterface.canvas_width;
       this.canvasX = cardInterface.canvas_x;

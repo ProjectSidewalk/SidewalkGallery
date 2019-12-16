@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { Card } from '../cards/card';
 import {Tag} from "../cards/tag";
-import {GalleryTag} from "../cards/gallery-tag";
+import {GalleryTag, TagEvent} from "../cards/gallery-tag";
 
 /**
  * Angular component for the overview of one gallery.
@@ -26,5 +26,10 @@ export class GalleryOverview {
     });
 
 
+  }
+
+  private printTag(event: TagEvent) {
+    console.log("printing");
+    console.log(event);
   }
 }

@@ -2,7 +2,7 @@
     <h1 class="gallery-title" (click)="printCards()">{{this.title}}</h1>
     <div class="tag-container">
       <div *ngFor="let tag of tags">
-        <gallery-tags [tag]=tag></gallery-tags>
+        <gallery-tags [tag]=tag (tagEvent)="printTag($event)"></gallery-tags>
       </div>
     </div>
     <div class="image-container">

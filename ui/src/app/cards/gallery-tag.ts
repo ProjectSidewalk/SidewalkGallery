@@ -1,7 +1,19 @@
-import { Component, Input } from '@angular/core';
-import {MatButtonModule} from "@angular/material/button";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Tag} from "./tag";
 
+export class TagEvent {
+  labelTypeId: number;
+  selected: boolean;
+  tag: string;
+  tagId: number;
+
+  constructor (labelTypeId: number, selected: boolean, tag: string, tagId: number) {
+    this.labelTypeId = labelTypeId;
+    this.selected = selected;
+    this.tag = tag;
+    this.tagId = tagId;
+  }
+}
 
 @Component({
   selector: 'gallery-tags',
@@ -14,18 +26,26 @@ import {Tag} from "./tag";
 export class GalleryTag {
   // Metadata object containing information about this GalleryCard.
   @Input() tag: Tag | undefined;
-  selected: boolean = false;
+  @Output() tagEvent = new EventEmitter<TagEvent>();
 
-  constructor (tag: Tag) {
-    this.tag = tag;
-  }
+  selected: boolean = false;
 
   get description(): string {
     return this.tag!.tag;
   }
 
+  get labelTypeId(): number {
+    return this.tag!.labelTypeId;
+  }
+
+  get tagId(): number {
+    return this.tag!.tagId;
+  }
+
   toggle(): void {
     this.selected = !this.selected;
-    console.log(this.description + ": " + this.selected);
+    this.tagEvent.emit(new TagEvent(this.labelTypeId, this.selected, this.description, this.tagId));
+    console.log("Emitting event: ");
+    // console.log(this.description + ": " + this.selected);
   }
 }
