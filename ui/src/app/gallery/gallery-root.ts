@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 
-import { Constants } from '../constants';
-
-import {CardInterface, GalleryService, TagInterface} from '../gallery-service';
-import { Card } from '../cards/card';
-import {Subscription} from "rxjs";
-import {Tag} from "../cards/tags";
+import { GalleryService } from '../gallery-service';
+import {Card, CardResponse} from '../cards/card';
+import { Subscription } from "rxjs";
+import {Tag, TagResponse} from "../cards/tag";
 
 /**
  * The top level-component for a sidewalk gallery. Holds multiple individual label galleries inside.
@@ -17,7 +15,6 @@ import {Tag} from "../cards/tags";
 })
 export class GalleryRoot {
   title: string | undefined;
-  maxCount: number;
 
   curbCards: Card[] = [];
   missingCurbCards: Card[] = [];
@@ -27,30 +24,24 @@ export class GalleryRoot {
 
   curbTags: Tag[] = [];
 
-  private curbRampSubscription: Subscription|undefined;
-  private missingCurbRampSubscription: Subscription|undefined;
-  private obstacleSubscription: Subscription|undefined;
-  private sfcpSubscription: Subscription|undefined;
-  private noSidewalkSubscription: Subscription|undefined;
+  private curbRampSubscription: Subscription = new Subscription();
+  private missingCurbRampSubscription: Subscription = new Subscription();
+  private obstacleSubscription: Subscription = new Subscription();
+  private sfcpSubscription: Subscription = new Subscription();
+  private noSidewalkSubscription: Subscription = new Subscription();
 
   private curbTagsSubscription: Subscription|undefined;
 
   constructor(private galleryService: GalleryService) {
-      this.maxCount = 8;
-  }
-
-  ngOnInit() {
-    console.log("[gallery-root] initializing");
-    this.addSubscriptions();
-
+      this.addSubscriptions();
   }
 
 
-  private jsonToCards(json: CardInterface): Card {
+  private jsonToCards(json: CardResponse): Card {
     return new Card(json);
   }
 
-  private jsonToTags(json: TagInterface): Tag {
+  private jsonToTags(json: TagResponse): Tag {
     return new Tag(json);
   }
 

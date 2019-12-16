@@ -1,4 +1,21 @@
-import {CardInterface} from "../gallery-service";
+export interface CardResponse {
+  canvas_height: number;
+  canvas_width: number;
+  canvas_x: number;
+  canvas_y: number;
+  description: string;
+  heading: number;
+  image_url: string;         // Should use a SafeURL
+  gsv_panorama_id: string;
+  label_id: number;
+  label_type_id: number;
+  pitch: number;
+  severity: number;
+  zoom: number;
+
+  // name: string;
+  // tags: string[];
+}
 
 export class Card {
     canvasHeight: number;
@@ -19,7 +36,7 @@ export class Card {
     name: string|undefined;
     tags: string[]|undefined;
 
-    constructor (cardInterface: CardInterface) {
+    constructor (cardInterface: CardResponse) {
       this.canvasHeight = cardInterface.canvas_height;
       this.canvasWidth = cardInterface.canvas_width;
       this.canvasX = cardInterface.canvas_x;

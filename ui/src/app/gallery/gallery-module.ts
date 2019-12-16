@@ -11,7 +11,7 @@ import { GalleryService } from '../gallery-service';
 import { AppComponent } from '../app.component';
 import { AppHttpInterceptorService } from '../http-interceptor.service';
 import { GalleryCard } from '../cards/gallery-card';
-import {GalleryTags} from "../cards/gallery-tags";
+import {GalleryTag} from "../cards/gallery-tag";
 import {MatButtonModule} from "@angular/material/button";
 
 /**
@@ -22,7 +22,7 @@ import {MatButtonModule} from "@angular/material/button";
   declarations: [
     GalleryCard,
     GalleryRoot,
-    GalleryTags,
+    GalleryTag,
     GalleryOverview,
   ],
   imports: [

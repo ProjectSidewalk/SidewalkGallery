@@ -1,20 +1,24 @@
 import { Component, Input } from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
-import {Tag} from "./tags";
+import {Tag} from "./tag";
 
 
 @Component({
   selector: 'gallery-tags',
-  templateUrl: './gallery-tags.html',
-  styleUrls: ['./gallery-tags.css']
+  templateUrl: './gallery-tag.html',
+  styleUrls: ['./gallery-tag.css']
 })
 /**
  * Front-end representation of one card in the gallery.
  */
-export class GalleryTags {
+export class GalleryTag {
   // Metadata object containing information about this GalleryCard.
   @Input() tag: Tag | undefined;
   selected: boolean = false;
+
+  constructor (tag: Tag) {
+    this.tag = tag;
+  }
 
   get description(): string {
     return this.tag!.tag;

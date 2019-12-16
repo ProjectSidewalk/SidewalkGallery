@@ -6,32 +6,8 @@ import { Observable } from 'rxjs/index';
 
 import { Constants } from './constants';
 
-import { Card } from './cards/card';
-
-export interface CardInterface {
-  canvas_height: number;
-  canvas_width: number;
-  canvas_x: number;
-  canvas_y: number;
-  description: string;
-  heading: number;
-  image_url: string;         // Should use a SafeURL
-  gsv_panorama_id: string;
-  label_id: number;
-  label_type_id: number;
-  pitch: number;
-  severity: number;
-  zoom: number;
-
-  // name: string;
-  // tags: string[];
-}
-
-export interface TagInterface {
-  label_type_id: number;
-  tag: string;
-  tag_id: number;
-}
+import {Card, CardResponse} from './cards/card';
+import {TagResponse} from "./cards/tag";
 
 /**
  * Class that handles the transfer of data between Angular and Scala.
@@ -45,7 +21,7 @@ export class GalleryService {
   private dataPostTestUrl = '/api/postTest';
   private labelMetadataUrl = '/api/labelMetadata/';
 
-  private responseCards: CardInterface[] = [];
+  private responseCards: CardResponse[] = [];
 
   curbCards: Card[] = [];
 
@@ -73,37 +49,37 @@ export class GalleryService {
   ///////////////////////
   // Helper stub functions to generate temporary data for SidewalkGallery.
   ///////////////////////
-  private labelQuery(url: String, count: Number): Observable<CardInterface[]> {
-    return this.http.get<CardInterface[]>(url + count.toString(10))
+  private labelQuery(url: String, count: Number): Observable<CardResponse[]> {
+    return this.http.get<CardResponse[]>(url + count.toString(10))
   }
 
   /**
    * Gets curb ramp cards.
    * @param images
    */
-  public getCurbRamps(): Observable<CardInterface[]> {
+  public getCurbRamps(): Observable<CardResponse[]> {
     return this.labelQuery(Constants.curbRampAPI, 10);
   }
 
-  public getMissingCurbRamps(): Observable<CardInterface[]> {
+  public getMissingCurbRamps(): Observable<CardResponse[]> {
     return this.labelQuery(Constants.missingCurbRampAPI, 10);
   }
 
-  public getObstacles(): Observable<CardInterface[]> {
+  public getObstacles(): Observable<CardResponse[]> {
     return this.labelQuery(Constants.obstacleAPI, 10);
   }
 
 
-  public getSurfaceProblems(): Observable<CardInterface[]> {
+  public getSurfaceProblems(): Observable<CardResponse[]> {
     return this.labelQuery(Constants.surfaceProblemAPI, 10);
   }
 
-  public getNoSidewalk(): Observable<CardInterface[]> {
+  public getNoSidewalk(): Observable<CardResponse[]> {
     return this.labelQuery(Constants.noSidewalkAPI, 10);
   }
 
-  public getTags(labelTypeId: number): Observable<TagInterface[]> {
-    return this.http.get<TagInterface[]>(Constants.tagsAPI + labelTypeId.toString(10))
+  public getTags(labelTypeId: number): Observable<TagResponse[]> {
+    return this.http.get<TagResponse[]>(Constants.tagsAPI + labelTypeId.toString(10))
   }
 
 
