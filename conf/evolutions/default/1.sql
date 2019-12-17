@@ -40,6 +40,7 @@ CREATE TABLE label_tags
     label_tag_id SERIAL NOT NULL,
     label_id INTEGER NOT NULL,
     tag_id INT NOT NULL,
+    PRIMARY KEY (label_tag_id),
     FOREIGN KEY (label_id) REFERENCES label(label_id),
     FOREIGN KEY (tag_id) REFERENCES tag(tag_id)
 );

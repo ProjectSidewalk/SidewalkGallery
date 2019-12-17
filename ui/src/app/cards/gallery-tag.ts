@@ -1,6 +1,10 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Tag} from "./tag";
 
+/**
+ * Class that holds information about the current state of the tag on the GalleryOverview Interface.
+ * Emitted when a tag button is clicked on.
+ */
 export class TagEvent {
   labelTypeId: number;
   selected: boolean;
@@ -45,7 +49,5 @@ export class GalleryTag {
   toggle(): void {
     this.selected = !this.selected;
     this.tagEvent.emit(new TagEvent(this.labelTypeId, this.selected, this.description, this.tagId));
-    console.log("Emitting event: ");
-    // console.log(this.description + ": " + this.selected);
   }
 }

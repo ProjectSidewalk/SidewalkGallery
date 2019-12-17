@@ -70,6 +70,8 @@ class LabelTable (tag: slick.lifted.Tag) extends Table[Label](tag, "label") {
  */
 object LabelQuery extends TableQuery(new LabelTable(_)) {
   val db = Database.forConfig("slick.dbs.default.db")
+  val labels = TableQuery[LabelTable]
+  val labelTags = TableQuery[LabelTagTable]
 
   /**
    * TODO(@aileenzeng): Define ordering of labels that need to be retrieved.
@@ -81,6 +83,11 @@ object LabelQuery extends TableQuery(new LabelTable(_)) {
    * @return            Seq of labels that were associated with this label.
    */
   def getLabels(labelTypeId: Int, count: Int): Future[Seq[Label]] = {
+    // Equivalent SQL query:
+    //
+    // SELECT * from labels
+    // WHERE label_type_id = count
+    //
     val query = LabelQuery.filter(_.labelTypeId === labelTypeId).result
     db.run(query)
   }
