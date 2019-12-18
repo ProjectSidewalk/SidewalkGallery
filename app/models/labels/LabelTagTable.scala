@@ -7,6 +7,8 @@ import play.api.libs.json.{JsObject, Json}
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 
+import play.api.libs.concurrent.Execution.Implicits._
+
 /**
  * Backend model object for a tag object.
  */
@@ -40,16 +42,29 @@ object LabelTagQuery extends TableQuery(new LabelTagTable(_)) {
   val labelTags = TableQuery[LabelTagTable]
   val tags = TableQuery[TagTable]
 
+  /**
+   * TODO(@aileenzeng): Instead of returning a Seq[LabelTagMetadata], return a
+   * Future[Seq[LabelTagMetadata]].
+   *
+   * Gets all the label tags associated with a label.
+   * @param labelId Label to retrieve tags for.
+   * @return  Sequence of tags associated with this label.
+   */
   def getLabelTagsForLabel(labelId: Int): Seq[LabelTagMetadata] = {
+    // Equivalent SQL command:
+    //
+    // SELECT t.description, lt.labelId, lt.labelTagId, lt.label
+    // FROM labelTags as 'lt' AND tags as 't'
+    // WHERE lt.labelId = labelID
+    //     AND t.tagId = lt.tagId
+    //
     val query = for {
       lt <- labelTags if lt.labelId === labelId
       (t, lt) <- tags join labelTags on (_.tagId === _.tagId)
-    } yield (t.description, labelId, lt.labelTagId, lt.tagId)
+    } yield (t.description, lt.labelId, lt.labelTagId, lt.tagId)
 
-    val result = Await.result(db.run(query.result), Duration(10, "seconds"))
+    val result: Seq[(String, Int, Int, Int)] = Await.result(db.run(query.result), Duration(10, "seconds"))
     result.map(x => LabelTagMetadata(x._1, x._2, x._3, x._4))
-
-//    db.run(query.result)
   }
 
   /**
