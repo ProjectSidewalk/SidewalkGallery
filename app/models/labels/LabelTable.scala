@@ -1,5 +1,6 @@
 package models.labels
 
+import models.tags.TagTable
 import models.utils.MyPostgresProfile.api._
 import play.api.libs.json.{JsObject, Json}
 
@@ -71,13 +72,12 @@ class LabelTable (tag: slick.lifted.Tag) extends Table[Label](tag, "label") {
 object LabelQuery extends TableQuery(new LabelTable(_)) {
   val db = Database.forConfig("slick.dbs.default.db")
   val labels = TableQuery[LabelTable]
-  val labelTags = TableQuery[LabelTagTable]
 
   /**
    * TODO(@aileenzeng): Define ordering of labels that need to be retrieved.
    * TODO(@aileenzeng): Write small function that will limit the number of labels retrieved.
    *
-   * Retrieves labels with a certain ID.
+   * Retrieves labels with belonging to a certain label type.
    * @param labelTypeId LabelTypeID to retrieve.
    * @param count       Maximum number of labels to retrieve.
    * @return            Seq of labels that were associated with this label.
