@@ -1,6 +1,5 @@
 package models.labels
 
-import models.tags.TagTable
 import models.utils.MyPostgresProfile.api._
 import play.api.libs.json.{JsObject, Json}
 
@@ -114,6 +113,8 @@ object LabelQuery extends TableQuery(new LabelTable(_)) {
       "gsv_panorama_id" -> label.gsvPanoramaId,
       "pitch" -> label.pitch,
       "severity" -> label.severity,
+      "tagIds" -> LabelTagQuery.getTagIdsForLabel(label.labelId),
+      "tags" -> LabelTagQuery.getTagDescriptionsForLabel(label.labelId),
       "zoom" -> label.zoom
     )
   }
