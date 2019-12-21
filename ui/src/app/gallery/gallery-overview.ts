@@ -24,8 +24,6 @@ export class GalleryOverview {
     this.tags!.forEach(tag => {
       console.log(tag)
     });
-
-
   }
 
   private printTag(event: TagEvent) {

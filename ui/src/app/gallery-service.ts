@@ -16,14 +16,8 @@ import {TagResponse} from "./cards/tag";
  */
 @Injectable()
 export class GalleryService {
-  // TODO(@aileenzeng): move to constants
   private serviceUrl = '/api/summary';
   private dataPostTestUrl = '/api/postTest';
-  private labelMetadataUrl = '/api/labelMetadata/';
-
-  private responseCards: CardResponse[] = [];
-
-  curbCards: Card[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -69,7 +63,6 @@ export class GalleryService {
     return this.labelQuery(Constants.obstacleAPI, 10);
   }
 
-
   public getSurfaceProblems(): Observable<CardResponse[]> {
     return this.labelQuery(Constants.surfaceProblemAPI, 10);
   }
@@ -81,15 +74,4 @@ export class GalleryService {
   public getTags(labelTypeId: number): Observable<TagResponse[]> {
     return this.http.get<TagResponse[]>(Constants.tagsAPI + labelTypeId.toString(10))
   }
-
-
-  // private getCard(imageUrl: string): Card {
-  //   let card: Card = new Card();
-  //   card.name = "card6";
-  //   card.imageUrl = imageUrl;
-  //   card.severity = 2;
-  //   card.description = "Hello, this is a very very long description for a curb ramp image.";
-  //   card.tags = ["no friction strips", " not enough landing space"];
-  //   return card;
-  // }
 }

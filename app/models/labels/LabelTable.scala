@@ -113,7 +113,7 @@ object LabelQuery extends TableQuery(new LabelTable(_)) {
       "gsv_panorama_id" -> label.gsvPanoramaId,
       "pitch" -> label.pitch,
       "severity" -> label.severity,
-      "tagIds" -> LabelTagQuery.getTagIdsForLabel(label.labelId),
+      "tag_ids" -> LabelTagQuery.getTagIdsForLabel(label.labelId),
       "tags" -> LabelTagQuery.getTagDescriptionsForLabel(label.labelId),
       "zoom" -> label.zoom
     )

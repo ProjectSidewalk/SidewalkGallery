@@ -16,10 +16,9 @@ export interface CardResponse {
   label_type_id: number;
   pitch: number;
   severity: number;
+  tag_ids: number[];
+  tags: string[];
   zoom: number;
-
-  // name: string;
-  // tags: string[];
 }
 
 /**
@@ -38,11 +37,9 @@ export class Card {
     labelTypeId: number;
     pitch: number;
     severity: number|undefined;
-    zoom: number;
-
-    // Custom other fields (haven't been added yet)
-    name: string|undefined;
+    tagIds: number[]|undefined;
     tags: string[]|undefined;
+    zoom: number;
 
   /**
    * Converts from a response to a Card object.
@@ -61,6 +58,8 @@ export class Card {
       this.labelTypeId = cardInterface.label_type_id;
       this.pitch = cardInterface.pitch;
       this.severity = cardInterface.severity;
+      this.tagIds = cardInterface.tag_ids;
+      this.tags = cardInterface.tags;
       this.zoom = cardInterface.zoom;
     }
 }
