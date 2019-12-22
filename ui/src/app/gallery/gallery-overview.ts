@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Card } from '../cards/card';
-import {Tag} from "../cards/tag";
+import { Tag } from "../cards/tag";
 import {GalleryTag, TagEvent} from "../cards/gallery-tag";
 
 /**
@@ -13,21 +13,17 @@ import {GalleryTag, TagEvent} from "../cards/gallery-tag";
   styleUrls: ['./gallery-overview.css']
 })
 export class GalleryOverview {
-  @Input() cards: Card[] | undefined;
-  @Input() title: string | undefined;
-  @Input() tags: Tag[] | undefined;
+  // The label cards that should be displayed in this section of the gallery.
+  @Input() cards: Card[] = [];
 
-  private printCards(): void {
-    console.log(this.cards);
-    console.log(this.tags);
+  // The title of this gallery. (Should be the name of the label that this gallery overview is
+  // representing.
+  @Input() title: string = '';
 
-    this.tags!.forEach(tag => {
-      console.log(tag)
-    });
-  }
+  // The tags that are associated with the given gallery.
+  @Input() tags: Tag[] = [];
 
   private printTag(event: TagEvent) {
-    console.log("printing");
     console.log(event);
   }
 }
