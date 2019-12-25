@@ -16,9 +16,13 @@ export interface CardResponse {
   label_type_id: number;
   pitch: number;
   severity: number;
-  tag_ids: number[];
-  tags: string[];
+  tags: CardTag[];
   zoom: number;
+}
+
+export interface CardTag {
+  description: string;
+  tagId: number;
 }
 
 /**
@@ -37,8 +41,7 @@ export class Card {
     labelTypeId: number;
     pitch: number;
     severity: number|undefined;
-    tagIds: number[]|undefined;
-    tags: string[]|undefined;
+    tags: Map<number, string>;
     zoom: number;
 
   /**
@@ -58,8 +61,14 @@ export class Card {
       this.labelTypeId = cardInterface.label_type_id;
       this.pitch = cardInterface.pitch;
       this.severity = cardInterface.severity;
-      this.tagIds = cardInterface.tag_ids;
-      this.tags = cardInterface.tags;
+      this.tags = new Map();
       this.zoom = cardInterface.zoom;
+
+      let tagArray = cardInterface.tags;
+      // Populates the tag map from the JSON Array values.
+      tagArray.forEach(x =>
+        this.tags.set(x.tagId, x.description)
+      );
+
     }
 }

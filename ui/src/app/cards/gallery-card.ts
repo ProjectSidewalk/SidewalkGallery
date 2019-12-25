@@ -9,7 +9,7 @@ import { Card } from './card';
     templateUrl: './gallery-card.html',
     styleUrls: ['./gallery-card.css']
 })
-/** 
+/**
  * Front-end representation of one card in the gallery.
  */
 export class GalleryCard {
@@ -24,15 +24,11 @@ export class GalleryCard {
         return this.card!.imageUrl;
     }
 
-    get name(): string|undefined {
-        return this.card!.name;
-    }
-
     get severity(): number|undefined {
         return this.card!.severity;
     }
 
     get tags(): string[]|undefined {
-        return this.card!.tags;
+        return Array.from(this.card!.tags.values());
     }
 }

@@ -80,10 +80,10 @@ object LabelTagQuery extends TableQuery(new LabelTagTable(_)) {
    */
   def toTagMetadata(labelTag: LabelTagMetadata): JsObject = {
     Json.obj(
-      "description" -> labelTag.description,
-      "label_id" -> labelTag.labelId,
       "label_tag_id" -> labelTag.labelTagId,
-      "tag_id" -> labelTag.tagId
+      "description" -> labelTag.description,
+      //"label_id" -> labelTag.labelId,
+      //"tag_id" -> labelTag.tagId
     )
   }
 

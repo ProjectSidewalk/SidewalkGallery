@@ -38,6 +38,7 @@ export class GalleryRoot {
 
 
   private jsonToCards(json: CardResponse): Card {
+    console.log(json);
     return new Card(json);
   }
 
