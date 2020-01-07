@@ -22,7 +22,7 @@ export interface CardResponse {
 
 export interface CardTag {
   description: string;
-  tagId: number;
+  tag_id: number;
 }
 
 /**
@@ -49,26 +49,27 @@ export class Card {
    * @param cardInterface
    */
   constructor (cardInterface: CardResponse) {
-      this.canvasHeight = cardInterface.canvas_height;
-      this.canvasWidth = cardInterface.canvas_width;
-      this.canvasX = cardInterface.canvas_x;
-      this.canvasY = cardInterface.canvas_y;
-      this.description = cardInterface.description;
-      this.heading = cardInterface.heading;
-      this.imageUrl = cardInterface.image_url;
-      this.gsvPanoramaId = cardInterface.gsv_panorama_id;
-      this.labelId = cardInterface.label_id;
-      this.labelTypeId = cardInterface.label_type_id;
-      this.pitch = cardInterface.pitch;
-      this.severity = cardInterface.severity;
-      this.tags = new Map();
-      this.zoom = cardInterface.zoom;
+    this.canvasHeight = cardInterface.canvas_height;
+    this.canvasWidth = cardInterface.canvas_width;
+    this.canvasX = cardInterface.canvas_x;
+    this.canvasY = cardInterface.canvas_y;
+    this.description = cardInterface.description;
+    this.heading = cardInterface.heading;
+    this.imageUrl = cardInterface.image_url;
+    this.gsvPanoramaId = cardInterface.gsv_panorama_id;
+    this.labelId = cardInterface.label_id;
+    this.labelTypeId = cardInterface.label_type_id;
+    this.pitch = cardInterface.pitch;
+    this.severity = cardInterface.severity;
+    this.tags = new Map();
+    this.zoom = cardInterface.zoom;
 
-      let tagArray = cardInterface.tags;
-      // Populates the tag map from the JSON Array values.
-      tagArray.forEach(x =>
-        this.tags.set(x.tagId, x.description)
-      );
+    let tagArray = cardInterface.tags;
+    // Populates the tag map from the JSON Array values.
 
-    }
+    tagArray.forEach(tag => {
+      this.tags.set(tag.tag_id, tag.description);
+    });
+
+  }
 }

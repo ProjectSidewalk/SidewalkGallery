@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 import { GalleryService } from '../gallery-service';
-import {Card, CardResponse} from '../cards/card';
+import { Card, CardResponse } from '../cards/card';
 import { Subscription } from "rxjs";
-import {Tag, TagResponse} from "../cards/tag";
+import { Tag, TagResponse } from "../cards/tag";
 
 /**
  * The top level-component for a sidewalk gallery. Holds multiple individual label galleries inside.
@@ -52,33 +52,33 @@ export class GalleryRoot {
   private addSubscriptions(): void {
     this.curbRampSubscription = this.galleryService.getCurbRamps().subscribe(
       result => {
-        this.curbCards = result.map(x => this.jsonToCards(x))
+        this.curbCards = result.map(x => this.jsonToCards(x));
       });
 
     this.missingCurbRampSubscription = this.galleryService.getMissingCurbRamps().subscribe(
       result => {
-        this.missingCurbCards = result.map(x => this.jsonToCards(x))
+        this.missingCurbCards = result.map(x => this.jsonToCards(x));
       });
 
     this.obstacleSubscription = this.galleryService.getObstacles().subscribe(
       result => {
-        this.obstacleCards = result.map(x => this.jsonToCards(x))
+        this.obstacleCards = result.map(x => this.jsonToCards(x));
       });
 
     this.sfcpSubscription = this.galleryService.getSurfaceProblems().subscribe(
       result => {
-        this.surfaceProbCards = result.map(x => this.jsonToCards(x))
+        this.surfaceProbCards = result.map(x => this.jsonToCards(x));
       });
 
 
     this.noSidewalkSubscription = this.galleryService.getNoSidewalk().subscribe(
       result => {
-        this.noSidewalkCards = result.map(x => this.jsonToCards(x))
+        this.noSidewalkCards = result.map(x => this.jsonToCards(x));
       });
 
     this.curbTagsSubscription = this.galleryService.getTags(1).subscribe(
       result => {
-        this.curbTags = result.map(x => this.jsonToTags(x))
+        this.curbTags = result.map(x => this.jsonToTags(x));
       });
   }
 }
