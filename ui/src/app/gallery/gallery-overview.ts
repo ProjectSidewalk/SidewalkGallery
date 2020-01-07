@@ -32,6 +32,11 @@ export class GalleryOverview {
   // The tags that are associated with the given gallery.
   @Input() tags: Tag[] = [];
 
+  /**
+   * Angular hook that listens for changes on any of the inputs.
+   * TODO(@aileenz): Might want to change this, because we only want to update displayCards if
+   * the cards input is changed.
+   */
   ngOnChanges() {
     for (let card of this.cards) {
       this.displayCards.add(card);
@@ -45,20 +50,16 @@ export class GalleryOverview {
   private filterCards(event: TagEvent) {
     if (event.selected) {
       this.filters.add(event.tagId);
-      console.log("Filters");
-      console.log(this.filters);
       this.removeCards(event.tagId);
     } else {
       this.filters.delete(event.tagId);
-      console.log("Filters");
-      console.log(this.filters);
       this.addCards(event.tagId);
     }
   }
 
   /**
    * Removes cards that don't have the given ID to be displayed from the GalleryOverview.
-   * @param tagId
+   * @param tagId TagID of the tag that has been selected.
    */
   private removeCards(tagId: number) {
     for (let card of this.displayCards.values()) {
@@ -69,19 +70,17 @@ export class GalleryOverview {
   }
 
   /**
-   * Adds cards to the
-   * @param tagId
+   * Adds cards to be displayed onto the gallery after applying a filter.
+   * @param tagId TagID of the tag that has been unselected. Elements that do not have this tag, but
+   * do have the rest of the tags that have been applied should be added back into the gallery.
    */
   private addCards(tagId: number) {
-    console.log("adding cards");
     // Check all cards to see if there are new cards that need to be added back into the
     // display after unapplying a filter.
     for (let card of this.cards) {
       // If the card is not in the display cards, but does have the tag id, then check
       // to see if we should add it back in.
       if (!card.tags.has(tagId) && !this.displayCards.has(card)) {
-        console.log("Considering a new card to be added back in");
-        console.log(card);
         let addCard: boolean = true;
 
         // Only add in tags that have no common filters with the current filters that have
@@ -96,6 +95,5 @@ export class GalleryOverview {
         }
       }
     }
-    console.log(this.displayCards);
   }
 }
