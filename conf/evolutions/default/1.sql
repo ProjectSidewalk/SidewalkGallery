@@ -20,8 +20,8 @@ CREATE TABLE label
     zoom DOUBLE PRECISION NOT NULL,
     canvas_x INT NOT NULL,
     canvas_y INT NOT NULL,
-    canvas_height INT NOT NULL,
     canvas_width INT NOT NULL,
+    canvas_height INT NOT NULL,
     PRIMARY KEY (label_id),
     FOREIGN KEY (label_type_id) REFERENCES label_type(label_type_id)
 );

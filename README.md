@@ -29,7 +29,7 @@ To create a database
 createdb gallery -T template0 -U docker -h localhost
 ```
 
-To get into `psql` for sidewalk gallery:
+To use the interactive `psql` command line tool for sidewalk gallery:
 ```
 psql -h localhost -U docker -p 5432 [database name here]
 ```

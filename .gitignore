@@ -17,3 +17,6 @@ app/.idea
 
 # API Key for Google Maps
 google_maps_api_key.txt
+
+# Database
+/db

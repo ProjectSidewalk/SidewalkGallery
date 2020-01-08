@@ -11,13 +11,14 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 scalaVersion := "2.12.8"
 
 libraryDependencies ++= Seq(
+  evolutions,
   guice,
   filters,
   "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.2" % Test,
   "com.h2database" % "h2" % "1.4.199",
 //  "com.typesafe.slick" %% "slick" % "3.2.1",
 //  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.3",
-//  "com.typesafe.play" %% "play-slick" % "4.0.2",
+  "com.typesafe.play" %% "play-slick" % "4.0.2",
   "com.typesafe.play" %% "play-slick-evolutions" % "4.0.2",
   "org.slf4j" % "slf4j-nop" % "1.6.4",
   "org.postgresql" % "postgresql" % "42.2.0",

@@ -4,6 +4,7 @@ import { GalleryService } from '../gallery-service';
 import { Card, CardResponse } from '../cards/card';
 import { Subscription } from "rxjs";
 import { Tag, TagResponse } from "../tags/tag";
+import { Constants } from "../constants";
 
 /**
  * The top level-component for a sidewalk gallery. Holds multiple individual label galleries inside.
@@ -36,9 +37,7 @@ export class GalleryRoot {
       this.addSubscriptions();
   }
 
-
   private jsonToCards(json: CardResponse): Card {
-    console.log(json);
     return new Card(json);
   }
 
@@ -76,7 +75,7 @@ export class GalleryRoot {
         this.noSidewalkCards = result.map(x => this.jsonToCards(x));
       });
 
-    this.curbTagsSubscription = this.galleryService.getTags(1).subscribe(
+    this.curbTagsSubscription = this.galleryService.getTags(Constants.curbRampId).subscribe(
       result => {
         this.curbTags = result.map(x => this.jsonToTags(x));
       });

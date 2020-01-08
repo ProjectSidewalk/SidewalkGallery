@@ -45,6 +45,7 @@ RUN update-locale ${LANG}
 
 # We will run any commands in this when the container starts
 ADD docker-entrypoint.sh /docker-entrypoint.sh
+ADD db/sidewalk-seattle-dump /db/sidewalk-seattle-dump
 ADD setup-conf.sh /
 ADD setup-database.sh /
 ADD setup-pg_hba.sh /
