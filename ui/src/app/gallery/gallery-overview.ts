@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 import { Card } from '../cards/card';
-import { Tag } from "../cards/tag";
-import { TagEvent} from "../cards/gallery-tag";
+import { Tag } from "../tags/tag";
+import { TagEvent} from "../tags/gallery-tag";
 
 /**
  * Angular component for the overview of one gallery.

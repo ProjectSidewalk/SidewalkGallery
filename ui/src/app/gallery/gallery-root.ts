@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { GalleryService } from '../gallery-service';
 import { Card, CardResponse } from '../cards/card';
 import { Subscription } from "rxjs";
-import { Tag, TagResponse } from "../cards/tag";
+import { Tag, TagResponse } from "../tags/tag";
 
 /**
  * The top level-component for a sidewalk gallery. Holds multiple individual label galleries inside.

@@ -5,32 +5,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
 import { AppHttpInterceptorService } from './http-interceptor.service';
-import { AppComponent } from './app.component';
+import { AppComponent } from './app-component';
 
-import { AppService } from './app.service';
-import {GalleryService} from './gallery-service';
+import { GalleryService } from './gallery-service';
 import { GalleryModule } from './gallery/gallery-module';
 
 import {GalleryRoot} from './gallery/gallery-root';
 
-import { RouteExampleComponent } from './route-example/route-example.component';
-
 const routes: Routes = [
-  {
-    path: 'scala',
-    component: RouteExampleComponent,
-    data: { technology: 'Scala' }
-  },
-  {
-    path: 'play',
-    component: RouteExampleComponent,
-    data: { technology: 'Play' }
-  },
-  {
-    path: 'angular',
-    component: RouteExampleComponent,
-    data: { technology: 'Angular' }
-  },
   {
     path: 'gallery',
     component: GalleryRoot,
@@ -49,7 +31,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    RouteExampleComponent
   ],
   imports: [
     BrowserModule,

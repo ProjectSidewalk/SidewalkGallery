@@ -8,10 +8,10 @@ import { GalleryOverview } from './gallery-overview';
 import  {GalleryRoot } from './gallery-root';
 import { GalleryService } from '../gallery-service';
 
-import { AppComponent } from '../app.component';
+import { AppComponent } from '../app-component';
 import { AppHttpInterceptorService } from '../http-interceptor.service';
 import { GalleryCard } from '../cards/gallery-card';
-import {GalleryTag} from "../cards/gallery-tag";
+import {GalleryTag} from "../tags/gallery-tag";
 import {MatButtonModule} from "@angular/material/button";
 
 /**
