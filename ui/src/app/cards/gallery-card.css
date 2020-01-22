@@ -1,39 +1,39 @@
 :host {
-    width: 270px;
-    margin-left: 10px;
+  margin-left: 10px;
+  width: 270px;
 }
 
 ::ng-deep mat-card.gallery-card {
-    width: inherit;
-    height: inherit;
-    margin-left: 10px;
+  height: inherit;
+  margin-left: 10px;
+  width: 270px;
 }
 
 ::ng-deep mat-list.metadata-list mat-list-item.metadata-item-inline {
-    height: 100%;
-    flex-direction: row;
-    padding-bottom: 10px;
+  flex-direction: row;
+  height: 100%;
+  padding-bottom: 10px;
 }
 
 ::ng-deep mat-list.metadata-list mat-list-item.metadata-item-inline .mat-list-item-content {
-    padding: 0px 4px;
+  padding: 0px 4px;
 }
 
 ::ng-deep mat-list.metadata-list mat-list-item.metadata-item-col {
-    height: 100%;
-    padding-bottom: 10px;
+  height: 100%;
+  padding-bottom: 10px;
 }
 
 ::ng-deep mat-list.metadata-list mat-list-item.metadata-item-col .mat-list-item-content {
-    align-items: baseline;
-    flex-direction: column;
-    height: auto;
-    padding: 0px 4px;
+  align-items: baseline;
+  flex-direction: column;
+  height: auto;
+  padding: 0px 4px;
 }
 
 .gallery-card-inner-container img.gallery-image {
   position: relative;
-    width: 100%;
+  width: 100%;
 }
 
 .image-container {
@@ -41,26 +41,59 @@
 }
 
 .gallery-card-inner-container img.label-icon {
-  width: 10px;
-  top: 68px;
   left: 110px;
-  z-index: 2;
   position: absolute;
+  top: 68px;
+  width: 10px;
+  z-index: 2;
 }
 
 .gallery-metadata {
-    display: flex;
+  display: flex;
 }
 
 .metadata-container {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .metadata-description {
-    font-weight: 500;
-    margin-right: 10px;
+  font-weight: 500;
+  margin-right: 10px;
 }
 
 .metadata-content {
-    font-weight: 400;
+  font-weight: 400;
+}
+
+.validation-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.validation-container .validation-panel {
+  align-items: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: inherit;
+}
+
+/* TODO(aileenzeng): Move into constants for theme colors */
+#agree-panel {
+  background-color: #78c8aa61;
+}
+
+#disagree-panel {
+  background-color: #ea734d61;
+}
+
+#notsure-panel {
+  background-color: #fad68a61;
 }

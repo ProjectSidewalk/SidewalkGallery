@@ -1,28 +1,41 @@
 <mat-card class="gallery-card">
-    <div class="gallery-card-outer-container">
-        <div class="gallery-card-inner-container">
-            <div class="image-container">
-                <!-- Hard-coding image paths for cards. Should be changed to actual url later. -->
-                <!--<img class="gallery-image" src="/assets/{{imageUrl}}"/> -->
-              <img class="gallery-image" src="{{imageUrl}}"/>
-              <img class="label-icon" src="assets/cursors/Cursor_CurbRamp.png">
-            </div>
-            <div class="metadata-container">
-                <mat-list class="metadata-list">
-                    <mat-list-item class="metadata-item-inline">
-                        <div class="metadata-description">Severity: </div>
-                        <div class="metadata-content">{{severity}}</div>
-                    </mat-list-item>
-                    <mat-list-item *ngIf="description" class="metadata-item-col">
-                        <div class="metadata-description">Description</div>
-                        <div class="metadata-content">{{description}}</div>
-                    </mat-list-item>
-                    <mat-list-item *ngIf="tags" class="metadata-item-col">
-                        <div class="metadata-description">Tags</div>
-                        <div class="metadata-content">{{tags}}</div>
-                    </mat-list-item>
-                </mat-list>
-            </div>
+  <div class="gallery-card-outer-container">
+    <div class="gallery-card-inner-container">
+      <div class="image-container">
+        <div class="validation-container">
+          <!-- Validation container holds the options for performing validations on Gallery
+               labels. -->
+          <div class="validation-panel" id="agree-panel">
+            <div class="validation-text" id="agree-text">Agree</div>
+          </div>
+          <div class="validation-panel" id="notsure-panel">
+            <div class="validation-text" id="notsure-text">Not sure</div>
+          </div>
+          <div class="validation-panel" id="disagree-panel">
+            <div class="validation-text" id="disagree-text">Disagree</div>
+          </div>
         </div>
+          <!-- Hard-coding image paths for cards. Should be changed to actual url later. -->
+          <!--<img class="gallery-image" src="/assets/{{imageUrl}}"/> -->
+        <img class="gallery-image" src="{{imageUrl}}"/>
+        <img class="label-icon" src="assets/cursors/Cursor_CurbRamp.png">
+      </div>
+      <div class="metadata-container">
+        <mat-list class="metadata-list">
+          <mat-list-item class="metadata-item-inline">
+            <div class="metadata-description">Severity: </div>
+            <div class="metadata-content">{{severity}}</div>
+          </mat-list-item>
+          <mat-list-item *ngIf="description" class="metadata-item-col">
+          <div class="metadata-description">Description</div>
+          <div class="metadata-content">{{description}}</div>
+        </mat-list-item>
+        <mat-list-item *ngIf="tags" class="metadata-item-col">
+          <div class="metadata-description">Tags</div>
+          <div class="metadata-content">{{tags}}</div>
+          </mat-list-item>
+        </mat-list>
+      </div>
     </div>
+  </div>
 </mat-card>
