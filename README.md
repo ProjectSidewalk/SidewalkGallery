@@ -8,12 +8,13 @@
 ## Setup Instructions
 
 ### Frontend (Angular / Scala)
-The front-end just requires us to run Scala. 
+The front-end just requires us to run Scala. The tilde (~) in front enables watch mode. Everything in the `app`, `conf` and `ui directories will automatically be updated upon the next reload.
 ```
-sbt run
+sbt ~run
 ```
 
 ### Backend
+To build and run the dtaabase:
 ```
 docker build -t "sidewalkgallery_db" .
 sudo docker run --name "postgis" -p 25432:5432 -d -t "sidewalkgallery_db"
@@ -24,7 +25,7 @@ To run the interactive terminal:
 docker exec -it "postgis" bin/bash
 ```
 
-To create a database
+To create an empty database
 ```
 createdb gallery -T template0 -U docker -h localhost
 ```
