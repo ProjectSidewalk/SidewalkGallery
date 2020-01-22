@@ -87,7 +87,7 @@ object LabelQuery extends TableQuery(new LabelTable(_)) {
     // SELECT * from labels
     // WHERE label_type_id = count
     //
-    val query = LabelQuery.filter(_.labelTypeId === labelTypeId).result
+    val query = LabelQuery.filter(_.labelTypeId === labelTypeId).take(8).result
     db.run(query)
   }
 
