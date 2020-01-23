@@ -52,6 +52,12 @@
   display: flex;
 }
 
+/* Unclear why we're using display: flex here. Actually doesn't make much sense,
+   but magically seems to constrain the image height. (shrug) */
+.img-wrapper {
+  display: flex;
+}
+
 .metadata-container {
   margin-top: 10px;
 }
