@@ -86,14 +86,34 @@
 }
 
 /* TODO(aileenzeng): Move into constants for theme colors */
-#agree-panel {
+.validation-container .validation-panel.agree-deselected {
   background-color: #78c8aa61;
 }
 
-#disagree-panel {
+.validation-container .validation-panel.agree-selected {
+  background-color: #78c8aacf;
+}
+
+.validation-container .validation-panel.disagree-deselected {
   background-color: #ea734d61;
 }
 
-#notsure-panel {
+.validation-container .validation-panel.disagree-selected {
+  background-color: #ea734dcf;
+}
+
+.validation-container .validation-panel.notsure-deselected {
   background-color: #fad68a61;
+}
+
+.validation-container .validation-panel.notsure-selected {
+  background-color: #fad68acf;
+}
+
+.show {
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
 }

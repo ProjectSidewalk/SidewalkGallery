@@ -1,17 +1,29 @@
 <mat-card class="gallery-card">
   <div class="gallery-card-outer-container">
     <div class="gallery-card-inner-container">
-      <div class="image-container">
-        <div class="validation-container">
+      <div class="image-container"
+           (mouseenter)="togglePanel()"
+           (mouseleave)="togglePanel()">
+        <div class="validation-container"
+          [ngClass]="{'display': displayPanel, 'hide': !displayPanel}">
           <!-- Validation container holds the options for performing validations on Gallery
                labels. -->
-          <div class="validation-panel" id="agree-panel">
+          <div class="validation-panel"
+            (click)="submitValidation(1)"
+            [ngClass]="{'agree-selected': validationResult === 1,
+                        'agree-deselected': validationResult !== 1}">
             <div class="validation-text" id="agree-text">Agree</div>
           </div>
-          <div class="validation-panel" id="notsure-panel">
+          <div class="validation-panel" id="notsure-panel"
+             (click)="submitValidation(3)"
+             [ngClass]="{'notsure-selected': validationResult === 3,
+                         'notsure-deselected': validationResult !== 3}">
             <div class="validation-text" id="notsure-text">Not sure</div>
           </div>
-          <div class="validation-panel" id="disagree-panel">
+          <div class="validation-panel" id="disagree-panel"
+             (click)="submitValidation(2)"
+             [ngClass]="{'disagree-selected': validationResult === 2,
+                         'disagree-deselected': validationResult !== 2}">
             <div class="validation-text" id="disagree-text">Disagree</div>
           </div>
         </div>

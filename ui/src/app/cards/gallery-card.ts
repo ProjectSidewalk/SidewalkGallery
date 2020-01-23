@@ -13,22 +13,37 @@ import { Card } from './card';
  * Front-end representation of one card in the gallery.
  */
 export class GalleryCard {
-    // Metadata object containing information about this GalleryCard.
-    @Input() card: Card | undefined;
+  // Metadata object containing information about this GalleryCard.
+  @Input() card: Card | undefined;
 
-    get description(): string|undefined {
-        return this.card!.description;
-    }
+  displayPanel: boolean = false;
+  validationResult: number = -1;
 
-    get imageUrl(): string|undefined {
-        return this.card!.imageUrl;
-    }
+  get description(): string|undefined {
+      return this.card!.description;
+  }
 
-    get severity(): number|undefined {
-        return this.card!.severity;
-    }
+  get imageUrl(): string|undefined {
+      return this.card!.imageUrl;
+  }
 
-    get tags(): string[]|undefined {
-        return Array.from(this.card!.tags.values());
+  get severity(): number|undefined {
+      return this.card!.severity;
+  }
+
+  get tags(): string[]|undefined {
+      return Array.from(this.card!.tags.values());
+  }
+
+  togglePanel(): void {
+    this.displayPanel = !this.displayPanel;
+  }
+
+  submitValidation(result: number): void {
+    if (this.validationResult === result) {
+      this.validationResult = -1;
+    } else {
+      this.validationResult = result;
     }
+  }
 }
