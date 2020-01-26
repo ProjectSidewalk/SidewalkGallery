@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 
-import { GalleryService } from '../gallery-service';
-import { Card, CardResponse } from '../cards/card';
 import { Subscription } from "rxjs";
-import { Tag, TagResponse } from "../tags/tag";
+import { GalleryService } from '../gallery-service';
+import { Card } from '../cards/card';
+import { CardResponse} from "../models/card-response";
+import { Tag } from "../tags/tag";
+import { TagResponse } from "../models/tag-response";
 import { Constants } from "../constants";
 
 /**

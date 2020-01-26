@@ -6,8 +6,9 @@ import { Observable } from 'rxjs/index';
 
 import { Constants } from './constants';
 
-import {Card, CardResponse} from './cards/card';
-import {TagResponse} from "./tags/tag";
+import { Card } from './cards/card';
+import { CardResponse } from "./models/card-response";
+import { TagResponse } from "./models/tag-response";
 
 /**
  * Class that handles the transfer of data between Angular and Scala.

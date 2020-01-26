@@ -1,8 +1,4 @@
-export interface TagResponse {
-  label_type_id: number;
-  tag: string;
-  tag_id: number;
-}
+import {TagResponse} from "../models/tag-response";
 
 export class Tag {
   labelTypeId: number;
