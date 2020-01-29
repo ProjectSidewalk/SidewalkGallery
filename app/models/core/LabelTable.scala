@@ -7,9 +7,37 @@ import play.api.libs.json.{JsObject, Json}
 import scala.concurrent.Future
 import scala.io.Source
 
-case class GalleryLabel(gsvPanoramaId: String,
+/**
+ * Backend model object for a label object.
+ *
+ * @param canvasHeight  Height of the user's GSV canvas when they placed the label.
+ * @param canvasWidth   Width of the user's GSV canvas when they placed the label.
+ * @param canvasX       The center x-coordinate of the label placed by the user.
+ * @param canvasY       The center y-coordinate of the label placed by the user.
+ * @param description   Description that user provided of the label.
+ * @param gsvPanoramaId GSV Panorama ID of the label.
+ * @param heading       User's heading when they placed the label.
+ * @param labelId       Unique ID that represents this label. Used as a primary key in the primary
+ *                      Sidewalk database and can be used to access information in related tables.
+ * @param labelTypeId   Label type of this label [1-7].
+ * @param pitch         User's pitch when they placed the label.
+ * @param severity      Severity of the label [1-5].
+ * @param zoom          Zoom level the user was at when they placed the label. (Note that this is
+ *                      the zoom level that we arbitrarily created in the front-end for core Project
+ *                      Sidewalk).
+ */
+case class GalleryLabel(canvasHeight: Int,
+                        canvasWidth: Int,
+                        canvasX: Int,
+                        canvasY: Int,
+                        description: Option[String],
+                        gsvPanoramaId: String,
+                        heading: Float,
                         labelId: Int,
-                        labelTypeId: Int)
+                        labelTypeId: Int,
+                        pitch: Float,
+                        severity: Option[Int],
+                        zoom: Int)
 
 /**
  * Backend model object for a label object.
