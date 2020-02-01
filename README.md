@@ -1,16 +1,24 @@
 # Sidewalk Gallery Notes
 ## Dependencies
+The following dependencies should be downloaded before running the project.
 * Docker (2.1.0.5)
 * [Node.js](https://nodejs.org/) (version 10 or higher)
 * [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (recommend version 1.8 or higher)
 * [scala](https://www.scala-lang.org/download/)
 
-## Setup Instructions
+## Development environment
+The recommended development environment for Sidewalk Gallery is IntelliJ IDEA. Valentina Studio is nice for database administration.
+
+## First-time Setup Instructions
+Run `npm install` in the root directory to get dependencies.
+```
+SidewalkGallery$ npm install
+```
 
 ### Frontend (Angular / Scala)
-The front-end just requires us to run Scala. The tilde (~) in front enables watch mode. Everything in the `app`, `conf` and `ui directories will automatically be updated upon the next reload.
+The front-end just requires us to run Scala. The tilde (~) in front enables watch mode. Everything in the `app`, `conf` and `ui` directories will automatically be updated upon the next reload. This command should be run in the root directory of the project. 
 ```
-sbt ~run
+SidewalkGallery$ sbt ~run
 ```
 
 ### Backend
