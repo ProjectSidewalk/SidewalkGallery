@@ -1,5 +1,6 @@
-package models.labels
+package models.demo
 
+import models.labels.LabelTagQuery
 import models.utils.MyPostgresProfile.api._
 import play.api.libs.json.{JsObject, Json}
 

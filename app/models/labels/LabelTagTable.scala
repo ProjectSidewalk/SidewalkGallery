@@ -1,11 +1,12 @@
 package models.labels
 
+import models.demo.LabelTable
 import models.tags.TagTable
 import models.utils.MyPostgresProfile.api._
 import play.api.libs.json.{JsObject, Json}
 
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Await}
+import scala.concurrent.Await
 
 /**
  * Backend model object for a tag object.
