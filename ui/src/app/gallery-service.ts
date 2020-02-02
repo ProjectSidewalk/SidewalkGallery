@@ -20,6 +20,8 @@ export class GalleryService {
   private serviceUrl = '/api/summary';
   private dataPostTestUrl = '/api/postTest';
 
+  private maxLabels: Number = 2;
+
   constructor(private http: HttpClient) { }
 
   /**
@@ -53,23 +55,23 @@ export class GalleryService {
    * @param images
    */
   public getCurbRamps(): Observable<CardResponse[]> {
-    return this.labelQuery(Constants.curbRampAPI, 10);
+    return this.labelQuery(Constants.curbRampAPI, this.maxLabels);
   }
 
   public getMissingCurbRamps(): Observable<CardResponse[]> {
-    return this.labelQuery(Constants.missingCurbRampAPI, 10);
+    return this.labelQuery(Constants.missingCurbRampAPI, this.maxLabels);
   }
 
   public getObstacles(): Observable<CardResponse[]> {
-    return this.labelQuery(Constants.obstacleAPI, 10);
+    return this.labelQuery(Constants.obstacleAPI, this.maxLabels);
   }
 
   public getSurfaceProblems(): Observable<CardResponse[]> {
-    return this.labelQuery(Constants.surfaceProblemAPI, 10);
+    return this.labelQuery(Constants.surfaceProblemAPI, this.maxLabels);
   }
 
   public getNoSidewalk(): Observable<CardResponse[]> {
-    return this.labelQuery(Constants.noSidewalkAPI, 10);
+    return this.labelQuery(Constants.noSidewalkAPI, this.maxLabels);
   }
 
   public getTags(labelTypeId: number): Observable<TagResponse[]> {

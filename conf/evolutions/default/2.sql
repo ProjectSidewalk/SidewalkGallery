@@ -8,5 +8,9 @@ CREATE TABLE gallery_validations
     PRIMARY KEY (gallery_validation_id)
 );
 
+
 # -- !Downs
 DROP TABLE gallery_validations
+
+ALTER TABLE label
+    ADD user_id TEXT NOT NULL;

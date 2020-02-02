@@ -1,7 +1,8 @@
 package controllers
 
 import javax.inject._
-import models.labels.{Label, LabelQuery}
+import models.demo.{Label, LabelQuery}
+import models.demo.LabelQuery
 import models.tags.{Tag, TagQuery}
 import play.api.libs.json.{JsArray, JsObject}
 import play.api.mvc._

@@ -27,6 +27,43 @@ export class GalleryCard {
       return this.card!.imageUrl;
   }
 
+  /**
+   * Gets the correct image asset for each label marker.
+   */
+  get labelIcon(): string {
+    let labelId: number = this.card!.labelTypeId;
+    let path = 'assets/cursors/Cursor_';
+    if (labelId === 1) { // Curb Ramp
+      path += 'CurbRamp.png';
+    } else if (labelId === 2) {  // Missing Curb Ramp
+      path += 'NoCurbRamp.png';
+    } else if (labelId === 3) { // Obstacle in Path
+      path += 'Obstacle.png';
+    } else if (labelId === 4) { // Surface Problem
+      path += 'SurfaceProblem.png';
+    } else {  // No Sidewalk
+      path += 'NoSidewalk.png';
+    }
+
+    return path;
+  }
+
+  /**
+   * Calculates x coordinate by using the ratio of original user's mouse
+   * location to the original panorama size.
+   * */
+  get labelX(): number {
+    return (270 * this.card!.canvasX) / this.card!.canvasWidth - 5;
+  }
+
+  /**
+   * Calculates y coordinate by using the ratio of original user's mouse
+   * location to the original panorama size.
+   * */
+  get labelY(): number {
+    return (202.5 * this.card!.canvasY) / this.card!.canvasHeight - 5
+  }
+
   get severity(): number|undefined {
       return this.card!.severity;
   }

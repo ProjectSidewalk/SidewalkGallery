@@ -1,6 +1,6 @@
 package models.core
 
-import models.labels.LabelTable
+import models.demo.LabelTable
 import models.utils.MyPostgresProfile.api._
 import play.api.libs.json.{JsObject, Json}
 
