@@ -88,7 +88,7 @@ object LabelQuery extends TableQuery(new LabelTable(_)) {
     // SELECT * from labels
     // WHERE label_type_id = count
     //
-    val query = LabelQuery.filter(_.labelTypeId === labelTypeId).take(8).result
+    val query = LabelQuery.filter(_.labelTypeId === labelTypeId).take(count).result
     db.run(query)
   }
 
@@ -134,6 +134,7 @@ object LabelQuery extends TableQuery(new LabelTable(_)) {
       "&size=" + label.canvasWidth + "x" + label.canvasHeight +
       "&heading=" + label.heading +
       "&pitch=" + label.pitch +
+      "&fov=" + getFov(label) +
       "&key=" + getGoogleMapsAPIKey()
     url
   }
@@ -150,4 +151,23 @@ object LabelQuery extends TableQuery(new LabelTable(_)) {
     bufferedSource.close
     key
   }
+
+  /* Hacky fix to generate the FOV for image (sort of like zoom). */
+  def getFov(label: Label): Double = {
+    if (label.zoom == 1) {
+      47.5
+    } else if (label.zoom == 2) {
+      52.5
+    } else {
+      57.5
+    }
+  }
+
+//  def _get3dFov(zoom: Int): Double = {
+//    if (zoom.toDouble <= 2) {
+//      126.5 - zoom.toDouble * 36.75  // linear descent
+//    } else {
+//      195.93 / Math.pow(1.92, zoom.toDouble)  // parameters determined experimentally
+//    };
+//  }
 }

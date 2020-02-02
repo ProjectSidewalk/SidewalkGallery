@@ -1,5 +1,6 @@
 <mat-card class="gallery-card">
   <div class="gallery-card-outer-container">
+    <h1 class="mat-card-title">{{card.labelId}}</h1>
     <div class="gallery-card-inner-container">
       <div class="image-container"
            (mouseenter)="togglePanel()"
@@ -31,9 +32,10 @@
           <!--<img class="gallery-image" src="/assets/{{imageUrl}}"/> -->
         <div class="img-wrapper">
           <img class="gallery-image" src="{{imageUrl}}"/>
-          <img class="label-icon" src="assets/cursors/Cursor_CurbRamp.png">
+          <img class="label-icon" src="{{labelIcon}}"
+          [ngStyle]="{'top': labelY + 'px',
+                      'left': labelX + 'px'}">
         </div>
-
       </div>
       <div class="metadata-container">
         <mat-list class="metadata-list">
