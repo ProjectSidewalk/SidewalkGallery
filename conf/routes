@@ -15,8 +15,11 @@ GET     /api/sfcp/:count            controllers.GalleryOverviewController.getSur
 GET     /api/nosidewalk/:count      controllers.GalleryOverviewController.getNoSidewalkLabels(count: Int)
 GET     /api/tags/:labelTypeId      controllers.GalleryOverviewController.getTags(labelTypeId: Int)
 
+GET     /api/test                   controllers.TestController.appSummary
+GET     /api/getTest                controllers.TestController.getTest
+
 # Serve static assets under public directory
 GET     /*file                      controllers.FrontendController.assetOrDefault(file)
 
-# Test post request
+# Test requests
 POST    /api/postTest               controllers.HomeController.postTest()
