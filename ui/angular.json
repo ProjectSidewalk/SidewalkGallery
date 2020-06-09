@@ -133,5 +133,8 @@
       }
     }
   },
-  "defaultProject": "scala-play-angular-seed"
+  "defaultProject": "scala-play-angular-seed",
+  "cli": {
+    "analytics": false
+  }
 }

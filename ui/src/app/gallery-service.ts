@@ -17,8 +17,10 @@ import { TagResponse } from "./models/tag-response";
  */
 @Injectable()
 export class GalleryService {
-  private serviceUrl = '/api/summary';
+  // private serviceUrl = '/api/summary';
+  private serviceUrl = '/api/test';
   private dataPostTestUrl = '/api/postTest';
+  private dataGetTestUrl = '/api/getTest';
 
   private maxLabels: Number = 2;
 
@@ -31,6 +33,13 @@ export class GalleryService {
     return this.http.get(this.serviceUrl).pipe(
       map(response => response)
     );
+  }
+
+  testGetRequest() {
+    console.log("gallery-service] Sending a get request to: " + this.dataGetTestUrl);
+    return this.http.get(this.dataGetTestUrl).pipe(
+      map(response => response)
+    )
   }
 
   /**

@@ -18,6 +18,10 @@ const routes: Routes = [
     component: GalleryRoot,
   },
   {
+    path: 'test',
+    component: AppComponent,
+  },
+  {
     path: '**',
     redirectTo: '/gallery',
     pathMatch: 'full'
