@@ -15,9 +15,9 @@ case class LabelTag(labelId: Int,
                     labelTagId: Int,
                     tagId: Int)
 
-case class LabelTagMetadata(description: String,
-                            labelId: Int,
+case class LabelTagMetadata(labelId: Int,
                             labelTagId: Int,
+                            tagDescription: String,
                             tagId: Int)
 
 /**
@@ -40,66 +40,25 @@ object LabelTagQuery extends TableQuery(new LabelTagTable(_)) {
   val labelTags = TableQuery[LabelTagTable]
   val tags = TableQuery[TagTable]
 
-  /**
-   * TODO(@aileenzeng): Instead of returning a Seq[LabelTagMetadata], return a
-   * Future[Seq[LabelTagMetadata]].
-   *
-   * Gets all the label tags associated with a label.
-   * @param labelId Label to retrieve tags for.
-   * @return  Sequence of tags associated with this label.
-   */
-  def getLabelTagsForLabel(labelId: Int): Seq[LabelTagMetadata] = {
-    val result: Seq[(String, Int, Int, Int)] = Await.result(queryTagsForLabel(labelId), Duration(10, "seconds"))
-    result.map(x => LabelTagMetadata(x._1, x._2, x._3, x._4))
-  }
-
-  /**
-   * Gets just the strings that are associated with this label.
-   * @param labelId The label to retrieve tags for
-   * @return  All tags that have been applied to this label.
-   */
-  def getTagDescriptionsForLabel(labelId: Int): Seq[String] = {
-    val result: Seq[(String, Int, Int, Int)] = Await.result(queryTagsForLabel(labelId), Duration(10, "seconds"))
-    result.map(x => x._1)
-  }
-
-  /**
-   * Gets just the ids that are associated with this label.
-   * @param labelId The label to retrieve tags for
-   * @return  All tags that have been applied to this label.
-   */
-  def getTagIdsForLabel(labelId: Int): Seq[Int] = {
-    val result: Seq[(String, Int, Int, Int)] = Await.result(queryTagsForLabel(labelId), Duration(10, "seconds"))
-    result.map(x => x._3)
-  }
-
-  /**
-   * Converts a tag from its backend model representation to a JSON.
-   * @param labelTag The label tag object to convert
-   * @return      The JSON representation of this label tag.
-   */
-  def toTagMetadata(labelTag: LabelTagMetadata): JsObject = {
-    Json.obj(
-      "tag_id" -> labelTag.tagId,
-      "description" -> labelTag.description,
-      // "label_tag_id" -> labelTag.labelTagId,
-      //"label_id" -> labelTag.labelId,
-    )
-  }
+  /****************************************************************************
+   * DB Requests
+   ***************************************************************************/
 
   /**
    * Helper that retrieves all the label tag data for a certain label.
    * @param labelId Label ID to retrieve data for.
-   * @return  Tuple containing the tag information for each tag associated with the label. The
-   *          ordering of the duple is (description, labelId, labelTagId, label).
+   * @return  Tuple containing the tag information for each tag associated with
+   *          the label. The ordering of the tuple is (description, labelId,
+   *          labelTagId, label).
    *
    *          * Description represents the text of the label.
    *          * LabelId is the id of the label that this tag was applied to.
-   *          * LabelTagId is the that associated with the tags of this name. (e.g., "bumpy" may be
-   *            have an ID of 4, "cracked" may have an ID of 5).
+   *          * LabelTagId is the that associated with the tags of this name.
+   *            (e.g., "bumpy" may be have an ID of 4, "cracked" may have an ID
+   *            of 5).
    *          * TagId is the unique ID of this particular tag.
    */
-  private def queryTagsForLabel(labelId: Int): Future[Seq[(String, Int, Int, Int)]] = {
+   def getLabelTags(labelId: Int): Future[Seq[(Int, Int, String, Int)]] = {
     // Equivalent SQL command:
     //
     // SELECT t.description, lt.labelId, lt.labelTagId, lt.label
@@ -112,8 +71,29 @@ object LabelTagQuery extends TableQuery(new LabelTagTable(_)) {
 
     val query = for {
       (lt, t) <- filteredLabelTags join tags on (_.tagId === _.tagId)
-    } yield (t.description, lt.labelId, lt.labelTagId, lt.tagId)
+    } yield (lt.labelId, lt.labelTagId, t.description, lt.tagId)
 
     DatabaseConfig.db.run(query.result)
+  }
+
+  /****************************************************************************
+   * Data Conversion Utils (e.g., label --> json)
+   ***************************************************************************/
+  def toTagMetadata(label: (Int, Int, String, Int)): LabelTagMetadata = {
+    LabelTagMetadata(label._1, label._2, label._3, label._4)
+  }
+
+  /**
+   * Converts a tag from its backend model representation to a JSON.
+   * @param labelTag The label tag object to convert
+   * @return      The JSON representation of this label tag.
+   */
+  def toTagJson(labelTag: LabelTagMetadata): JsObject = {
+    Json.obj(
+      "label_id" -> labelTag.labelId,
+      "label_tag_id" -> labelTag.labelTagId,
+      "tag_description" -> labelTag.tagDescription,
+      "tag_id" -> labelTag.tagId,
+    )
   }
 }

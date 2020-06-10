@@ -1,7 +1,9 @@
 import {CardResponse} from "../models/card-response";
 
 export interface CardTag {
-  description: string;
+  label_id: number,
+  label_tag_id: number
+  tag_description: string;
   tag_id: number;
 }
 
@@ -48,7 +50,7 @@ export class Card {
     // Populates the tag map from the JSON Array values.
 
     tagArray.forEach(tag => {
-      this.tags.set(tag.tag_id, tag.description);
+      this.tags.set(tag.tag_id, tag.tag_description);
     });
 
   }

@@ -4,28 +4,30 @@ import models.utils.DatabaseConfig
 import play.api.libs.json.{JsObject, Json}
 import slick.jdbc.PostgresProfile.api._
 
-import scala.concurrent.Future
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 import scala.io.Source
 
 /**
- * Turns out that lat-lng values are inaccurate, so they shouldn't be used for generating crops.
- *
  * Backend model object for a label object.
- * @param canvasHeight  Height of the user's GSV canvas when they placed the label.
- * @param canvasWidth   Width of the user's GSV canvas when they placed the label.
+ * @param canvasHeight  Height of user's GSV canvas when they user placed the
+ *                      label.
+ * @param canvasWidth   Width of user's GSV canvas when they placed the
+ *                      label.
  * @param canvasX       The center x-coordinate of the label placed by the user.
  * @param canvasY       The center y-coordinate of the label placed by the user.
  * @param description   Description that user provided of the label.
  * @param gsvPanoramaId GSV Panorama ID of the label.
  * @param heading       User's heading when they placed the label.
- * @param labelId       Unique ID that represents this label. Used as a primary key in the primary
- *                      Sidewalk database and can be used to access information in related tables.
+ * @param labelId       Unique ID that represents this label. Used as a primary
+ *                      key in the primary Sidewalk database and can be used to
+ *                      access information in related tables.
  * @param labelTypeId   Label type of this label [1-7].
  * @param pitch         User's pitch when they placed the label.
  * @param severity      Severity of the label [1-5].
- * @param zoom          Zoom level the user was at when they placed the label. (Note that this is
- *                      the zoom level that we arbitrarily created in the front-end for core Project
- *                      Sidewalk).
+ * @param zoom          Zoom level the user was at when they placed the label.
+ *                      (Note that this is the zoom level that we arbitrarily
+ *                      created in the front-end for core Project Sidewalk).
  */
 case class Label(canvasHeight: Int,
                  canvasWidth: Int,
@@ -58,26 +60,23 @@ class LabelTable (tag: slick.lifted.Tag) extends Table[Label](tag, "label") {
   def pitch: Rep[Float] = column[Float]("pitch")
   def zoom: Rep[Int] = column[Int]("zoom")
 
-  // def lat = column[Float]("lat")
-  // def lng = column[Float]("lng")
-
   override def * = (canvasHeight, canvasWidth, canvasX, canvasY,
-    description, gsvPanoramaId, heading, labelId, labelTypeId,  /* lat, lng,*/ pitch, severity,
+    description, gsvPanoramaId, heading, labelId, labelTypeId, pitch, severity,
     zoom) <> ((Label.apply _).tupled, Label.unapply)
 }
 
 /**
  * Object representing the queries that are performed on the table.
  */
-
 object LabelQuery extends TableQuery(new LabelTable(_)) {
   val labels = TableQuery[LabelTable]
 
+  /****************************************************************************
+   * DB Requests
+   ***************************************************************************/
+
   /**
-   * TODO(@aileenzeng): Define ordering of labels that need to be retrieved.
-   * TODO(@aileenzeng): Write small function that will limit the number of labels retrieved.
-   *
-   * Retrieves labels with belonging to a certain label type.
+   * Retrieves labels associated with a certain label type.
    * @param labelTypeId LabelTypeID to retrieve.
    * @param count       Maximum number of labels to retrieve.
    * @return            Seq of labels that were associated with this label.
@@ -88,19 +87,31 @@ object LabelQuery extends TableQuery(new LabelTable(_)) {
     // SELECT * from labels
     // WHERE label_type_id = count
     //
-    val query = LabelQuery.filter(_.labelTypeId === labelTypeId).take(count).result
+    val query = LabelQuery
+      .filter(_.labelTypeId === labelTypeId)
+      .take(count)
+      .result
     DatabaseConfig.db.run(query)
   }
 
+  /****************************************************************************
+   * Data Conversion Utils (e.g., label --> json)
+   ***************************************************************************/
+
   /**
-   * TODO(@aileenzeng): Move URL to a more secure function to avoid exposing the Google Maps
-   * API Key.
-   *
    * Converts a label from its backend model representation to a JSON.
    * @param label The label object to convert
    * @return      The JSON representation of this label.
    */
-  def toLabelMetadata(label: Label): JsObject = {
+  def toLabelJson(label: Label): JsObject = {
+    // TODO (@aileenzeng): Move URL to a more secure function to avoid exposing
+    //  the Google Maps API Key.
+
+    val labelTags: Seq[JsObject] = Await.result(LabelTagQuery
+      .getLabelTags(label.labelId), Duration(10, "seconds"))
+      .map(LabelTagQuery.toTagMetadata)
+      .map(LabelTagQuery.toTagJson)
+
     Json.obj(
       "canvas_height" -> label.canvasHeight,
       "canvas_width" -> label.canvasWidth,
@@ -114,16 +125,34 @@ object LabelQuery extends TableQuery(new LabelTable(_)) {
       "gsv_panorama_id" -> label.gsvPanoramaId,
       "pitch" -> label.pitch,
       "severity" -> label.severity,
-      // "tag_ids" -> LabelTagQuery.getTagIdsForLabel(label.labelId),
-      "tags" -> LabelTagQuery.getLabelTagsForLabel(label.labelId).map(x => LabelTagQuery.toTagMetadata(x)),
+      "tags" -> labelTags,
       "zoom" -> label.zoom
     )
   }
 
+  /****************************************************************************
+   * General Utils
+   ***************************************************************************/
   /**
-   * Retrieves the static image of the label panorama from the Google Street View Static API.
-   * Note that this returns the image of the panorama, but doesn't actually include the label.
-   * More information here: https://developers.google.com/maps/documentation/streetview/intro
+   * Hacky fix to generate the FOV for an image (sort of like zoom).
+   * Determined experimentally.
+   * @param label Label to retrieve the FOV for.
+   */
+  def getFov(label: Label): Double = {
+    if (label.zoom == 1) {
+      47.5
+    } else if (label.zoom == 2) {
+      52.5
+    } else {
+      57.5
+    }
+  }
+
+  /**
+   * Retrieves the static image of the label panorama from the Google Street
+   * View Static API. Note that this returns the image of the panorama, but
+   * doesn't actually include the label. More information here:
+   * https://developers.google.com/maps/documentation/streetview/intro
    *
    * @param label Label to retrieve the static image of.
    * @return  Image URL that represents the background of the label.
@@ -140,8 +169,8 @@ object LabelQuery extends TableQuery(new LabelTable(_)) {
   }
 
   /**
-   * Returns Google Maps API key from google_maps_api_key.txt (ask Mikey Saugstad for the file if
-   * you don't have it).
+   * Returns Google Maps API key from google_maps_api_key.txt (ask Mikey
+   * Saugstad for the file if you don't have it).
    * @return  Google Maps API Key.
    */
   def getGoogleMapsAPIKey(): String = {
@@ -151,23 +180,4 @@ object LabelQuery extends TableQuery(new LabelTable(_)) {
     bufferedSource.close
     key
   }
-
-  /* Hacky fix to generate the FOV for image (sort of like zoom). */
-  def getFov(label: Label): Double = {
-    if (label.zoom == 1) {
-      47.5
-    } else if (label.zoom == 2) {
-      52.5
-    } else {
-      57.5
-    }
-  }
-
-//  def _get3dFov(zoom: Int): Double = {
-//    if (zoom.toDouble <= 2) {
-//      126.5 - zoom.toDouble * 36.75  // linear descent
-//    } else {
-//      195.93 / Math.pow(1.92, zoom.toDouble)  // parameters determined experimentally
-//    };
-//  }
 }
