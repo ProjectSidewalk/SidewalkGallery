@@ -1,9 +1,8 @@
-package models.demo
+package models.labels
 
-import models.labels.LabelTagQuery
 import models.utils.DatabaseConfig
-import slick.jdbc.PostgresProfile.api._
 import play.api.libs.json.{JsObject, Json}
+import slick.jdbc.PostgresProfile.api._
 
 import scala.concurrent.Future
 import scala.io.Source
@@ -70,6 +69,7 @@ class LabelTable (tag: slick.lifted.Tag) extends Table[Label](tag, "label") {
 /**
  * Object representing the queries that are performed on the table.
  */
+
 object LabelQuery extends TableQuery(new LabelTable(_)) {
   val labels = TableQuery[LabelTable]
 

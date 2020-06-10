@@ -1,6 +1,7 @@
 package models
 
 import javax.inject.{Inject, Singleton}
+import models.labels.Label
 import models.utils.DatabaseConfig
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
@@ -8,12 +9,9 @@ import slick.driver.JdbcProfile
 import scala.concurrent.Future
 import slick.jdbc.PostgresProfile.api._
 
-import models.demo.Label
-
 // Setup based off of this article: https://powerspace.tech/using-slick-in-production-dbfcbe29545c
 @Singleton
-class TestDAO @Inject()(protected val dbConfigProvider : DatabaseConfigProvider) {
-  lazy val dbConfig = dbConfigProvider.get[JdbcProfile]
+class TestDAO {
 
   def print(): Unit = {
     println("TestDAO: Printing (no db query)")

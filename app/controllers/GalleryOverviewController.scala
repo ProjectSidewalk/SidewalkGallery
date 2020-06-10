@@ -1,8 +1,7 @@
 package controllers
 
 import javax.inject._
-import models.demo.{Label, LabelQuery}
-import models.demo.LabelQuery
+import models.labels.{Label, LabelQuery}
 import models.tags.{Tag, TagQuery}
 import play.api.libs.json.{JsArray, JsObject}
 import play.api.mvc._
@@ -14,6 +13,7 @@ import scala.concurrent.{Await, Future}
  * Handles backend request from the GalleryOverview component.
  * @param cc
  */
+@Singleton
 class GalleryOverviewController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
   // Label Type IDs for each of the label types.
   val curbRamp: Int = 1
@@ -33,7 +33,6 @@ class GalleryOverviewController @Inject()(cc: ControllerComponents) extends Abst
    * @return
    */
   def getCurbRampLabels(count: Int): Action[AnyContent] = Action.async {
-    println("[GalleryOverviewController]: getCurbRampLabels")
     val labels: Seq[Label] = Await.result(LabelQuery.getLabels(curbRamp, count),
       Duration(10, "seconds"))
     val labelJson: Seq[JsObject] = labels.map(LabelQuery.toLabelMetadata)
@@ -43,7 +42,6 @@ class GalleryOverviewController @Inject()(cc: ControllerComponents) extends Abst
   }
 
   def getMissingCurbRampLabels(count: Int): Action[AnyContent] = Action.async {
-    println("[GalleryOverviewController]: getMissingCurbRampLabels")
     val labels: Seq[Label] = Await.result(LabelQuery.getLabels(missingCurbRamp, count),
       Duration(10, "seconds"))
     val labelJson: Seq[JsObject] = labels.map(LabelQuery.toLabelMetadata)
@@ -53,7 +51,6 @@ class GalleryOverviewController @Inject()(cc: ControllerComponents) extends Abst
   }
 
   def getObstacleLabels(count: Int): Action[AnyContent] = Action.async {
-    println("[GalleryOverviewController]: getObstacleLabels")
     val labels: Seq[Label] = Await.result(LabelQuery.getLabels(obstacle, count),
       Duration(10, "seconds"))
     val labelJson: Seq[JsObject] = labels.map(LabelQuery.toLabelMetadata)
@@ -63,7 +60,6 @@ class GalleryOverviewController @Inject()(cc: ControllerComponents) extends Abst
   }
 
   def getSurfaceProblemLabels(count: Int): Action[AnyContent] = Action.async {
-    println("[GalleryOverviewController]: getSurfaceProblemLabels")
     val labels: Seq[Label] = Await.result(LabelQuery.getLabels(surfaceProblem, count),
       Duration(10, "seconds"))
     val labelJson: Seq[JsObject] = labels.map(LabelQuery.toLabelMetadata)
@@ -73,7 +69,6 @@ class GalleryOverviewController @Inject()(cc: ControllerComponents) extends Abst
   }
 
   def getNoSidewalkLabels(count: Int): Action[AnyContent] = Action.async {
-    println("[GalleryOverviewController]: getNoSidewalkLabels")
     val labels: Seq[Label] = Await.result(LabelQuery.getLabels(noSidewalk, count),
       Duration(10, "seconds"))
     val labelJson: Seq[JsObject] = labels.map(LabelQuery.toLabelMetadata)

@@ -9,12 +9,10 @@ import play.api.mvc._
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def appSummary = Action {
-    println("[HomeController.scala] hello???")
     Ok(Json.obj("content" -> "Scala Play Angular Seed"))
   }
 
   def postTest = Action {
-    println("[HomeController.scala] is this working?")
     Ok(Json.obj("content" -> "Post Request Test => Data Sending Success"))
   }
 }

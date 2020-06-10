@@ -15,11 +15,6 @@ export class AppComponent {
   constructor(private galleryService: GalleryService) {
     this.galleryService.getWelcomeMessage().subscribe((data: any) => {
       this.title = data.content;
-      console.log(data);
-    });
-
-    this.galleryService.testGetRequest().subscribe((data: any) => {
-      console.log(data);
     });
   }
 }

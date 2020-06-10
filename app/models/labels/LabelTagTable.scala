@@ -1,13 +1,12 @@
 package models.labels
 
-import models.demo.LabelTable
 import models.tags.TagTable
 import models.utils.DatabaseConfig
 import slick.jdbc.PostgresProfile.api._
 import play.api.libs.json.{JsObject, Json}
 
 import scala.concurrent.duration.Duration
-import scala.concurrent.Await
+import scala.concurrent.{Await, Future}
 
 /**
  * Backend model object for a tag object.
@@ -50,7 +49,7 @@ object LabelTagQuery extends TableQuery(new LabelTagTable(_)) {
    * @return  Sequence of tags associated with this label.
    */
   def getLabelTagsForLabel(labelId: Int): Seq[LabelTagMetadata] = {
-    val result: Seq[(String, Int, Int, Int)] = queryTagsForLabel(labelId)
+    val result: Seq[(String, Int, Int, Int)] = Await.result(queryTagsForLabel(labelId), Duration(10, "seconds"))
     result.map(x => LabelTagMetadata(x._1, x._2, x._3, x._4))
   }
 
@@ -60,7 +59,7 @@ object LabelTagQuery extends TableQuery(new LabelTagTable(_)) {
    * @return  All tags that have been applied to this label.
    */
   def getTagDescriptionsForLabel(labelId: Int): Seq[String] = {
-    val result: Seq[(String, Int, Int, Int)] = queryTagsForLabel(labelId)
+    val result: Seq[(String, Int, Int, Int)] = Await.result(queryTagsForLabel(labelId), Duration(10, "seconds"))
     result.map(x => x._1)
   }
 
@@ -70,7 +69,7 @@ object LabelTagQuery extends TableQuery(new LabelTagTable(_)) {
    * @return  All tags that have been applied to this label.
    */
   def getTagIdsForLabel(labelId: Int): Seq[Int] = {
-    val result: Seq[(String, Int, Int, Int)] = queryTagsForLabel(labelId)
+    val result: Seq[(String, Int, Int, Int)] = Await.result(queryTagsForLabel(labelId), Duration(10, "seconds"))
     result.map(x => x._3)
   }
 
@@ -100,19 +99,21 @@ object LabelTagQuery extends TableQuery(new LabelTagTable(_)) {
    *            have an ID of 4, "cracked" may have an ID of 5).
    *          * TagId is the unique ID of this particular tag.
    */
-  private def queryTagsForLabel(labelId: Int): Seq[(String, Int, Int, Int)] = {
+  private def queryTagsForLabel(labelId: Int): Future[Seq[(String, Int, Int, Int)]] = {
     // Equivalent SQL command:
     //
     // SELECT t.description, lt.labelId, lt.labelTagId, lt.label
     // FROM labelTags as 'lt' AND tags as 't'
+    // INNER JOIN tag ON tag.tag_id = label_tags.tag_id
     // WHERE lt.labelId = labelID
-    //     AND t.tagId = lt.tagId
     //
+
+    val filteredLabelTags = labelTags.filter(_.labelId === labelId)
+
     val query = for {
-      lt <- labelTags if lt.labelId === labelId
-      (t, lt) <- tags join labelTags on (_.tagId === _.tagId)
+      (lt, t) <- filteredLabelTags join tags on (_.tagId === _.tagId)
     } yield (t.description, lt.labelId, lt.labelTagId, lt.tagId)
 
-    Await.result(DatabaseConfig.db.run(query.result), Duration(10, "seconds"))
+    DatabaseConfig.db.run(query.result)
   }
 }

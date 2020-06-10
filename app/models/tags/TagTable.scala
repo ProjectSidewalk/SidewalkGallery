@@ -14,7 +14,7 @@ case class Tag(labelTypeId: Int,
                tagId: Int)
 
 /**
- * Data access object representing the "label" table in the database.
+ * Data access object representing the tag table in the database.
  * @param tag
  */
 class TagTable (tag: slick.lifted.Tag) extends Table[Tag](tag, "tag") {
