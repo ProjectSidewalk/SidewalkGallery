@@ -57,7 +57,6 @@ class LabelTable (tag: slick.lifted.Tag) extends Table[Label](tag, Some("sidewal
 }
 
 object LabelQuery extends TableQuery(new LabelTable(_)) {
-  val db = Database.forConfig("slick.dbs.default.db")
   val labels = TableQuery[LabelTable]
 
   // TODO(aileenzeng): Define this method, change clients to use GalleryLabels instead of Labels.

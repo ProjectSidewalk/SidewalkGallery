@@ -1,5 +1,6 @@
 package models.tags
 
+import models.utils.DatabaseConfig
 import slick.jdbc.PostgresProfile.api._
 import play.api.libs.json.{JsObject, Json}
 
@@ -30,7 +31,6 @@ class TagTable (tag: slick.lifted.Tag) extends Table[Tag](tag, "tag") {
  * Object representing the queries that are performed on the table.
  */
 object TagQuery extends TableQuery(new TagTable(_)) {
-  val db = Database.forConfig("slick.dbs.default.db")
 
   /**
    * Retrieves tags belonging to a certain label type.
@@ -39,7 +39,7 @@ object TagQuery extends TableQuery(new TagTable(_)) {
    */
   def getTags(labelTypeId: Int): Future[Seq[Tag]] = {
     val query = TagQuery.filter(_.labelTypeId === labelTypeId).result
-    db.run(query)
+    DatabaseConfig.db.run(query)
   }
 
   /**

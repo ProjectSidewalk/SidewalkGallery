@@ -2,6 +2,7 @@ package models.labels
 
 import models.demo.LabelTable
 import models.tags.TagTable
+import models.utils.DatabaseConfig
 import slick.jdbc.PostgresProfile.api._
 import play.api.libs.json.{JsObject, Json}
 
@@ -36,7 +37,6 @@ class LabelTagTable (tag: slick.lifted.Tag) extends Table[LabelTag](tag, "label_
  * Object representing the queries that are performed on the table.
  */
 object LabelTagQuery extends TableQuery(new LabelTagTable(_)) {
-  val db = Database.forConfig("slick.dbs.default.db")
   val labels = TableQuery[LabelTable]
   val labelTags = TableQuery[LabelTagTable]
   val tags = TableQuery[TagTable]
@@ -113,6 +113,6 @@ object LabelTagQuery extends TableQuery(new LabelTagTable(_)) {
       (t, lt) <- tags join labelTags on (_.tagId === _.tagId)
     } yield (t.description, lt.labelId, lt.labelTagId, lt.tagId)
 
-    Await.result(db.run(query.result), Duration(10, "seconds"))
+    Await.result(DatabaseConfig.db.run(query.result), Duration(10, "seconds"))
   }
 }

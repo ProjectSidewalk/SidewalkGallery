@@ -1,5 +1,7 @@
 package models.core
 
+import models.utils.DatabaseConfig
+
 import scala.concurrent.Future
 import slick.jdbc.PostgresProfile.api._
 
@@ -21,7 +23,6 @@ class LabelDescriptionTable (tag: slick.lifted.Tag)
 }
 
 object LabelDescriptionQuery extends TableQuery(new LabelDescriptionTable(_)) {
-  val db = Database.forConfig("slick.dbs.default.db")
   val descriptions = TableQuery[LabelDescriptionTable]
 
   /**
@@ -35,6 +36,6 @@ object LabelDescriptionQuery extends TableQuery(new LabelDescriptionTable(_)) {
     // SELECT description FROM label_description
     // WHERE label_description.label_id = labelId
     val query = LabelDescriptionQuery.filter(_.labelId === labelId).result
-    db.run(query)
+    DatabaseConfig.db.run(query)
   }
 }
