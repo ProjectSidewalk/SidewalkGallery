@@ -15,14 +15,14 @@ Run `npm install` in the root directory to get dependencies.
 SidewalkGallery$ npm install
 ```
 
-### Frontend (Angular / Scala)
-The front-end just requires us to run Scala. The tilde (~) in front enables watch mode. Everything in the `app`, `conf` and `ui` directories will automatically be updated upon the next reload. This command should be run in the root directory of the project. 
+### Frontend / Backend (Angular / Scala)
+The front-end just requires us to run Scala. Everything in the `app`, `conf` and `ui` directories will automatically be updated upon the next reload. This command should be run in the root directory of the project. 
 ```
-SidewalkGallery$ sbt ~run
+SidewalkGallery$ sbt run
 ```
 
-### Backend
-To build and run the dtaabase:
+### Database
+To build and run the database:
 ```
 docker build -t "sidewalkgallery_db" .
 sudo docker run --name "postgis" -p 25432:5432 -d -t "sidewalkgallery_db"
@@ -42,3 +42,12 @@ To use the interactive `psql` command line tool for sidewalk gallery:
 ```
 psql -h localhost -U docker -p 5432 [database name here]
 ```
+
+# Endpoints
+* `/gallery`: Landing page for Sidewalk gallery, shows a preview of all label types.
+* `/label/curbramp`: Shows curb ramp labels
+* `/label/mcr`: Shows missing curb ramp labels
+* `/label/sfcp`: Shows surface problem labels
+* `/label/obstacle`: Shows obstacle in path labels
+* `/label/nosidwalk`: Shows missing sidewalk labels.
+
