@@ -55,7 +55,7 @@ export class GalleryService {
   ///////////////////////
   // Helper stub functions to generate temporary data for SidewalkGallery.
   ///////////////////////
-  private labelQuery(url: String, count: Number): Observable<CardResponse[]> {
+  public labelQuery(url: String, count: Number): Observable<CardResponse[]> {
     return this.http.get<CardResponse[]>(url + count.toString(10))
   }
 

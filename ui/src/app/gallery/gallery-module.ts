@@ -13,6 +13,7 @@ import { AppHttpInterceptorService } from '../http-interceptor.service';
 import { GalleryCard } from '../cards/gallery-card';
 import {GalleryTag} from "../tags/gallery-tag";
 import {MatButtonModule} from "@angular/material/button";
+import {SingleGalleryRoot} from "./single-gallery-root";
 
 /**
  * Highest level Angular module for SidewalkGallery.
@@ -24,6 +25,7 @@ import {MatButtonModule} from "@angular/material/button";
     GalleryRoot,
     GalleryTag,
     GalleryOverview,
+    SingleGalleryRoot,
   ],
   imports: [
     BrowserModule,

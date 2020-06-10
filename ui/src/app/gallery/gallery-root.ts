@@ -9,7 +9,9 @@ import { TagResponse } from "../models/tag-response";
 import { Constants } from "../constants";
 
 /**
- * The top level-component for a sidewalk gallery. Holds multiple individual label galleries inside.
+ * The top level-component for a sidewalk gallery. Holds multiple individual
+ * label galleries inside.
+ * TODO: Rename this to something like gallery-landing-root?
  */
 @Component({
     selector: 'gallery-root',
@@ -33,7 +35,7 @@ export class GalleryRoot {
   private sfcpSubscription: Subscription = new Subscription();
   private noSidewalkSubscription: Subscription = new Subscription();
 
-  private curbTagsSubscription: Subscription|undefined;
+  private curbTagsSubscription: Subscription = new Subscription();
 
   constructor(private galleryService: GalleryService) {
       this.addSubscriptions();
@@ -81,5 +83,14 @@ export class GalleryRoot {
       result => {
         this.curbTags = result.map(x => this.jsonToTags(x));
       });
+  }
+
+  private ngOnDestroy() {
+    this.curbRampSubscription.unsubscribe();
+    this.missingCurbRampSubscription.unsubscribe();
+    this.obstacleSubscription.unsubscribe();
+    this.sfcpSubscription.unsubscribe();
+    this.noSidewalkSubscription.unsubscribe();
+    this.curbTagsSubscription.unsubscribe();
   }
 }

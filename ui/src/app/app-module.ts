@@ -11,11 +11,16 @@ import { GalleryService } from './gallery-service';
 import { GalleryModule } from './gallery/gallery-module';
 
 import {GalleryRoot} from './gallery/gallery-root';
+import {SingleGalleryRoot} from "./gallery/single-gallery-root";
 
 const routes: Routes = [
   {
     path: 'gallery',
     component: GalleryRoot,
+  },
+  {
+    path: 'label/:labelType',
+    component: SingleGalleryRoot,
   },
   {
     path: 'test',
