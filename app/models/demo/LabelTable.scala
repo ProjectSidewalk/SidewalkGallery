@@ -1,7 +1,7 @@
 package models.demo
 
 import models.labels.LabelTagQuery
-import models.utils.MyPostgresProfile.api._
+import slick.jdbc.PostgresProfile.api._
 import play.api.libs.json.{JsObject, Json}
 
 import scala.concurrent.Future

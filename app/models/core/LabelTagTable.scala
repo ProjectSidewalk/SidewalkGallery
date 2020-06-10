@@ -1,6 +1,6 @@
 package models.core
 
-import models.utils.MyPostgresProfile.api._
+import slick.jdbc.PostgresProfile.api._
 
 case class LabelTag(labelTagId: Int,
                     labelId: Int,

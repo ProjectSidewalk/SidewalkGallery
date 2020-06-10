@@ -1,11 +1,6 @@
 package models.core
 
-import models.demo.LabelTable
-import models.utils.MyPostgresProfile.api._
-import play.api.libs.json.{JsObject, Json}
-
-import scala.concurrent.Future
-import scala.io.Source
+import slick.jdbc.PostgresProfile.api._
 
 /**
  * Backend model object for a label object.

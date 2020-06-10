@@ -1,18 +1,19 @@
 package models
 
-import scala.concurrent.{ExecutionContext, Future}
-import javax.inject.Inject
-
+import javax.inject.{Inject, Singleton}
+import models.utils.DatabaseConfig
 import play.api.db.slick.DatabaseConfigProvider
-import play.api.db.slick.HasDatabaseConfigProvider
-import slick.jdbc.JdbcProfile
+import slick.driver.JdbcProfile
+
+import scala.concurrent.Future
+import slick.jdbc.PostgresProfile.api._
 
 import models.demo.Label
 
-class TestDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)
-                       (implicit executionContext: ExecutionContext)
-                                    extends HasDatabaseConfigProvider[JdbcProfile] {
-  import profile.api._
+// Setup based off of this article: https://powerspace.tech/using-slick-in-production-dbfcbe29545c
+@Singleton
+class TestDAO @Inject()(protected val dbConfigProvider : DatabaseConfigProvider) {
+  lazy val dbConfig = dbConfigProvider.get[JdbcProfile]
 
   def print(): Unit = {
     println("TestDAO: Printing (no db query)")
@@ -49,6 +50,14 @@ class TestDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)
   def getSinglePanoId(): Future[Seq[Label]] = {
     val labelId: Int = 9
     val query = LabelQuery.filter(_.labelId === labelId).result
-    db.run(query)
+    // Run query the first time
+    DatabaseConfig.db.run(query)
+
+    // Run the same query again (should not create more clients).
+    val duplicateQuery = LabelQuery.filter(_.labelId === labelId).result
+    DatabaseConfig.db.run(duplicateQuery)
+
+    val third = LabelQuery.filter(_.labelId === labelId).result
+    DatabaseConfig.db.run(third)
   }
 }

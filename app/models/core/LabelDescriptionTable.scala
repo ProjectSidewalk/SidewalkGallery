@@ -1,10 +1,7 @@
 package models.core
 
-import models.utils.MyPostgresProfile.api._
-import play.api.libs.json.{JsObject, Json}
-
 import scala.concurrent.Future
-import scala.io.Source
+import slick.jdbc.PostgresProfile.api._
 
 case class LabelDescription(labelDescription: String,
                             labelDescriptionId: Int,

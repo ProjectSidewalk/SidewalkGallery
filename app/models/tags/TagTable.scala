@@ -1,6 +1,6 @@
 package models.tags
 
-import models.utils.MyPostgresProfile.api._
+import slick.jdbc.PostgresProfile.api._
 import play.api.libs.json.{JsObject, Json}
 
 import scala.concurrent.Future
