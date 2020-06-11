@@ -1,4 +1,15 @@
 <!-- Lets us connect routing with other Angular pages. -->
+<mat-toolbar>
+  <div class="navbar-button-container">
+    <button mat-button [routerLink]="'/gallery'">Home</button>
+    <button mat-button [routerLink]="'/label/curbramp'">Curb Ramp</button>
+    <button mat-button [routerLink]="'/label/mcr'">Missing Curb Ramp</button>
+    <button mat-button [routerLink]="'/label/obstacle'">Obstacle</button>
+    <button mat-button [routerLink]="'/label/sfcp'">Surface Problem</button>
+    <button mat-button [routerLink]="'/label/nosidewalk'">No Sidewalk</button>
+  </div>
+</mat-toolbar>
+
 <router-outlet></router-outlet>
 <!-- TODO: Add HTML that we want to be consistent with the entire SidewalkGallery.
    Acts as a default template page. -->

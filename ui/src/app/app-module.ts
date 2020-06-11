@@ -12,6 +12,9 @@ import { GalleryModule } from './gallery/gallery-module';
 
 import {GalleryRoot} from './gallery/gallery-root';
 import {SingleGalleryRoot} from "./gallery/single-gallery-root";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatButtonModule} from "@angular/material/button";
 
 const routes: Routes = [
   {
@@ -50,7 +53,11 @@ const routes: Routes = [
       headerName: 'Csrf-Token',
     }),
     RouterModule.forRoot(routes),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatButtonModule
   ],
   providers: [
     GalleryService,

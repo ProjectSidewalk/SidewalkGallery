@@ -33,18 +33,33 @@ export class SingleGalleryRoot {
     console.log("Created single gallery root");
   }
 
-  private ngOnInit() {
+  ngOnInit(): void {
     // Gets the label type from the route parameter.
     this.routeParamsSubscription = this.route.params.subscribe(params => {
       let param: string = params['labelType'];
       if (param === 'curbramp' || param === 'mcr' || param === 'obstacle'
           || param === 'sfcp' || param === 'nosidewalk') {
 
+        this.cards = [];
+        this.tags = [];
+
         // TODO (aileenzeng): Cleanup the API for service calls.
         this.labelType = param;
         this.title = this.paramToTitle(param);
         this.cardQueryAPI = '/api/' + param + '/';
         this.tagQueryAPI = Constants.tagsAPI + this.labelNameToId(param);
+
+        this.cardSubscription = this.galleryService
+          .labelQuery(this.cardQueryAPI, 8)
+          .subscribe(result =>{
+            this.cards = result.map(this.jsonToCards);
+          });
+
+        this.tagSubscription = this.galleryService
+          .getTags(this.labelNameToId(this.labelType))
+          .subscribe(result => {
+            this.tags = result.map(this.jsonToTags);
+          });
       } else {
         // Hacky fix to redirect to the main page, if an invalid label type is
         // passed in.
@@ -52,18 +67,6 @@ export class SingleGalleryRoot {
         this.router.navigate(['/gallery'], {relativeTo: this.route});
       }
     });
-
-    this.cardSubscription = this.galleryService
-      .labelQuery(this.cardQueryAPI, 8)
-      .subscribe(result =>{
-        this.cards = result.map(this.jsonToCards);
-      });
-
-    this.tagSubscription = this.galleryService
-      .getTags(this.labelNameToId(this.labelType))
-      .subscribe(result => {
-        this.tags = result.map(this.jsonToTags);
-      });
   }
 
   private ngOnDestroy() {

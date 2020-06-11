@@ -14,6 +14,8 @@ import { GalleryCard } from '../cards/gallery-card';
 import {GalleryTag} from "../tags/gallery-tag";
 import {MatButtonModule} from "@angular/material/button";
 import {SingleGalleryRoot} from "./single-gallery-root";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatMenuModule} from "@angular/material/menu";
 
 /**
  * Highest level Angular module for SidewalkGallery.
@@ -37,6 +39,8 @@ import {SingleGalleryRoot} from "./single-gallery-root";
     MatCardModule,
     MatListModule,
     MatButtonModule,
+    MatMenuModule,
+    MatToolbarModule,
   ],
   providers: [
     GalleryService,

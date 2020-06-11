@@ -29,6 +29,8 @@ export class GalleryRoot {
 
   curbTags: Tag[] = [];
 
+  // TODO: Maybe clean this up at some point, since this is a lot of
+  //   redundant code.
   private curbRampSubscription: Subscription = new Subscription();
   private missingCurbRampSubscription: Subscription = new Subscription();
   private obstacleSubscription: Subscription = new Subscription();
@@ -36,6 +38,10 @@ export class GalleryRoot {
   private noSidewalkSubscription: Subscription = new Subscription();
 
   private curbTagsSubscription: Subscription = new Subscription();
+  private mcrTagsSubscription: Subscription = new Subscription();
+  private obsTagsSubscription: Subscription = new Subscription();
+  private sfcpTagsSubscription: Subscription = new Subscription();
+  private noSdwlkTagsSubscription: Subscription = new Subscription();
 
   constructor(private galleryService: GalleryService) {
       this.addSubscriptions();
@@ -79,10 +85,29 @@ export class GalleryRoot {
         this.noSidewalkCards = result.map(x => this.jsonToCards(x));
       });
 
-    this.curbTagsSubscription = this.galleryService.getTags(Constants.curbRampId).subscribe(
-      result => {
-        this.curbTags = result.map(x => this.jsonToTags(x));
-      });
+    this.mcrTagsSubscription = this.galleryService
+      .getTags(Constants.missingCurbRampId).subscribe(
+        result => {
+          this.curbTags = result.map(x => this.jsonToTags(x));
+        });
+
+    this.obsTagsSubscription = this.galleryService
+      .getTags(Constants.obstacleId).subscribe(
+        result => {
+          this.curbTags = result.map(x => this.jsonToTags(x));
+        });
+
+    this.sfcpTagsSubscription = this.galleryService
+      .getTags(Constants.surfaceProblemId).subscribe(
+        result => {
+          this.curbTags = result.map(x => this.jsonToTags(x));
+        });
+
+    this.noSdwlkTagsSubscription = this.galleryService
+      .getTags(Constants.noSidewalkId).subscribe(
+        result => {
+          this.curbTags = result.map(x => this.jsonToTags(x));
+        });
   }
 
   private ngOnDestroy() {
@@ -91,6 +116,11 @@ export class GalleryRoot {
     this.obstacleSubscription.unsubscribe();
     this.sfcpSubscription.unsubscribe();
     this.noSidewalkSubscription.unsubscribe();
+
     this.curbTagsSubscription.unsubscribe();
+    this.mcrTagsSubscription.unsubscribe();
+    this.sfcpTagsSubscription.unsubscribe();
+    this.obsTagsSubscription.unsubscribe();
+    this.noSdwlkTagsSubscription.unsubscribe();
   }
 }
