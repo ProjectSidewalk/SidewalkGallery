@@ -9,6 +9,7 @@ import { Constants } from './constants';
 import { Card } from './cards/card';
 import { CardResponse } from "./models/card-response";
 import { TagResponse } from "./models/tag-response";
+import {ValidationEvent} from "./cards/gallery-card";
 
 /**
  * Class that handles the transfer of data between Angular and Scala.
@@ -27,7 +28,8 @@ export class GalleryService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Makes a http get request to retrieve the welcome message from the backend service.
+   * Makes a http get request to retrieve the welcome message from the backend
+   * service. (Used for testing).
    */
   public getWelcomeMessage() {
     return this.http.get(this.serviceUrl).pipe(
@@ -35,26 +37,9 @@ export class GalleryService {
     );
   }
 
-  testGetRequest() {
-    console.log("gallery-service] Sending a get request to: " + this.dataGetTestUrl);
-    return this.http.get(this.dataGetTestUrl).pipe(
-      map(response => response)
-    )
-  }
-
-  /**
-   * Makes a http post request to send some data to backend & get response.
-   */
-  public sendData(card: Card): Observable<any> {
-    console.log("[gallery-service] Sending post request to " + this.dataPostTestUrl);
-    console.log("[gallery-service] Sending card");
-    console.log(card);
-    return this.http.post(this.dataPostTestUrl, {});
-  }
-
-  ///////////////////////
-  // Helper stub functions to generate temporary data for SidewalkGallery.
-  ///////////////////////
+  /*****************************************************************************
+   * GET Utils
+   ****************************************************************************/
   public labelQuery(url: String, count: Number): Observable<CardResponse[]> {
     return this.http.get<CardResponse[]>(url + count.toString(10))
   }
@@ -84,6 +69,14 @@ export class GalleryService {
   }
 
   public getTags(labelTypeId: number): Observable<TagResponse[]> {
-    return this.http.get<TagResponse[]>(Constants.tagsAPI + labelTypeId.toString(10))
+    return this.http.get<TagResponse[]>(Constants.tagsAPI
+      + labelTypeId.toString(10));
+  }
+
+  /*****************************************************************************
+   * POST Utils
+   ****************************************************************************/
+  public submitValidationResult(result: ValidationEvent): Observable<any> {
+    return this.http.post(Constants.validationPost, result);
   }
 }

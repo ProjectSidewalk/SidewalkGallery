@@ -3,6 +3,8 @@ import { Component, Input } from '@angular/core';
 import { Card } from '../cards/card';
 import { Tag } from "../tags/tag";
 import { TagEvent} from "../tags/gallery-tag";
+import { ValidationEvent } from "../cards/gallery-card";
+import {GalleryService} from "../gallery-service";
 
 /**
  * Angular component for the overview of one gallery.
@@ -32,6 +34,8 @@ export class GalleryOverview {
 
   // The tags that are associated with the given gallery.
   @Input() tags: Tag[] = [];
+
+  constructor(private galleryService: GalleryService) { }
 
   /**
    * Angular hook that listens for changes on any of the inputs.
@@ -99,5 +103,9 @@ export class GalleryOverview {
     // Order the cards in descending order by labelId (to maintain consistency
     // between views).
     this.displayCards.sort((a, b) => b.labelId - a.labelId);
+  }
+
+  private submitValidation(event: ValidationEvent) {
+    this.galleryService.submitValidationResult(event).subscribe();
   }
 }

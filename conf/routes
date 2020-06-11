@@ -15,6 +15,8 @@ GET     /api/sfcp/:count            controllers.GalleryOverviewController.getSur
 GET     /api/nosidewalk/:count      controllers.GalleryOverviewController.getNoSidewalkLabels(count: Int)
 GET     /api/tags/:labelTypeId      controllers.GalleryOverviewController.getTags(labelTypeId: Int)
 
+POST    /api/submitValidation       controllers.GalleryOverviewController.submitValidation()
+
 GET     /api/test                   controllers.TestController.appSummary
 GET     /api/getTest                controllers.TestController.getTest
 

@@ -21,7 +21,7 @@ case class LabelTagMetadata(labelId: Int,
                             tagId: Int)
 
 /**
- * Data access object representing the "label_tag" table in the database.
+ * Data access object representing the "label_tag" table.
  * @param tag
  */
 class LabelTagTable (tag: slick.lifted.Tag) extends Table[LabelTag](tag, "label_tags") {
@@ -33,7 +33,7 @@ class LabelTagTable (tag: slick.lifted.Tag) extends Table[LabelTag](tag, "label_
   }
 
 /**
- * Object representing the queries that are performed on the table.
+ * Object that runs queries to be performed on the table.
  */
 object LabelTagQuery extends TableQuery(new LabelTagTable(_)) {
   val labels = TableQuery[LabelTable]

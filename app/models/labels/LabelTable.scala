@@ -43,10 +43,11 @@ case class Label(canvasHeight: Int,
                  zoom: Int)
 
 /**
- * Data access object representing the "label" table in the database.
+ * Data access object representing the "label" table.
  * @param tag
  */
-class LabelTable (tag: slick.lifted.Tag) extends Table[Label](tag, "label") {
+class LabelTable (tag: slick.lifted.Tag)
+    extends Table[Label](tag, "label") {
   def canvasHeight: Rep[Int]  = column[Int]("canvas_height")
   def canvasWidth: Rep[Int] = column[Int]("canvas_width")
   def canvasX: Rep[Int] = column[Int]("canvas_x")
@@ -66,7 +67,7 @@ class LabelTable (tag: slick.lifted.Tag) extends Table[Label](tag, "label") {
 }
 
 /**
- * Object representing the queries that are performed on the table.
+ * Object that runs queries to be performed on the table.
  */
 object LabelQuery extends TableQuery(new LabelTable(_)) {
   val labels = TableQuery[LabelTable]

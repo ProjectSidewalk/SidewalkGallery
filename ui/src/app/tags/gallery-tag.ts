@@ -48,6 +48,7 @@ export class GalleryTag {
 
   toggle(): void {
     this.selected = !this.selected;
-    this.tagEvent.emit(new TagEvent(this.labelTypeId, this.selected, this.description, this.tagId));
+    this.tagEvent.emit(new TagEvent(this.labelTypeId, this.selected,
+      this.description, this.tagId));
   }
 }

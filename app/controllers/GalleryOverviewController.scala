@@ -3,11 +3,13 @@ package controllers
 import javax.inject._
 import models.labels.{Label, LabelQuery}
 import models.tags.{Tag, TagQuery}
-import play.api.libs.json.{JsArray, JsObject}
+import play.api.libs.json.{JsArray, JsError, JsObject, Json}
 import play.api.mvc._
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
+import formats.GalleryValidationFormats.GalleryValidationReads
+import models.validations.{GalleryValidation, GalleryValidationQuery}
 
 /**
  * Handles backend requests from the GalleryOverview component.
@@ -83,5 +85,28 @@ class GalleryOverviewController @Inject()(cc: ControllerComponents)
     Future.successful(
       Ok(JsArray(tagsJson))
     )
+  }
+
+  def submitValidation(): Action[AnyContent] = Action.async {
+    implicit request: Request[AnyContent] =>
+      request.body.asJson.foreach { json =>
+        // Gets the request parameters and validates the inputs.
+        val submission = json.validate(GalleryValidationReads)
+        submission.fold(
+          errors => {
+            Future.successful(BadRequest(Json.obj(
+              "success" -> false, "message" -> JsError.toJson(errors))))
+          },
+          submission => {
+            GalleryValidationQuery.insertValidation(GalleryValidation(0,
+              submission.labelId, submission.validationResult))
+            Future.successful(Ok(Json.obj("success" -> true)))
+          }
+        )
+      }
+
+      Future.successful(
+        Ok(JsArray())
+      )
   }
 }

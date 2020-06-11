@@ -15,4 +15,6 @@ export class Constants {
   static readonly surfaceProblemAPI: string = '/api/sfcp/';
   static readonly noSidewalkAPI: string = '/api/nosidewalk/';
   static readonly tagsAPI: string = '/api/tags/';
+
+  static readonly validationPost: string = '/api/submitValidation';
 }

@@ -1,8 +1,18 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule, MatListItem } from '@angular/material/list';
 
 import { Card } from './card';
+
+export class ValidationEvent {
+  label_id: number;
+  validation_result: number;
+
+  constructor (labelId: number, validationResult: number) {
+    this.label_id = labelId;
+    this.validation_result = validationResult;
+  }
+}
 
 @Component({
     selector: 'gallery-card',
@@ -15,6 +25,7 @@ import { Card } from './card';
 export class GalleryCard {
   // Metadata object containing information about this GalleryCard.
   @Input() card: Card | undefined;
+  @Output() validationEvent = new EventEmitter<ValidationEvent>();
 
   displayPanel: boolean = false;
   validationResult: number = -1;
@@ -81,6 +92,8 @@ export class GalleryCard {
       this.validationResult = -1;
     } else {
       this.validationResult = result;
+      this.validationEvent.emit(new ValidationEvent(this.card!.labelId,
+        this.validationResult));
     }
   }
 }
