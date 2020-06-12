@@ -1,10 +1,17 @@
-# Sidewalk Gallery Notes
+# Sidewalk Gallery
+![image](https://user-images.githubusercontent.com/25534091/84452867-dec08c80-ac0b-11ea-8a90-ae8eeef03f01.png)
+
+This is the main repo for Sidewalk Gallery. Above is a screenshot of the tool from 06/11/20.
+
+# Development Notes
 ## Dependencies
-The following dependencies should be downloaded before running the project.
+The following dependencies are required to run this project:
 * Docker (2.1.0.5)
 * [Node.js](https://nodejs.org/) (version 10 or higher)
 * [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (recommend version 1.8 or higher)
 * [scala](https://www.scala-lang.org/download/)
+
+We use Angular/Typescript for the frontend, Scala/Slick for the backend and PostgreSQL for our database.
 
 ## Development environment
 The recommended development environment for Sidewalk Gallery is IntelliJ IDEA. Valentina Studio is nice for database administration.
@@ -42,12 +49,4 @@ To use the interactive `psql` command line tool for sidewalk gallery:
 ```
 psql -h localhost -U docker -p 5432 [database name here]
 ```
-
-# Endpoints
-* `/gallery`: Landing page for Sidewalk gallery, shows a preview of all label types.
-* `/label/curbramp`: Shows curb ramp labels
-* `/label/mcr`: Shows missing curb ramp labels
-* `/label/sfcp`: Shows surface problem labels
-* `/label/obstacle`: Shows obstacle in path labels
-* `/label/nosidwalk`: Shows missing sidewalk labels.
 
