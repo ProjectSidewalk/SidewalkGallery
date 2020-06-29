@@ -24,10 +24,10 @@ Valentina Studio is nice for database administration.
       possible -- there's more than enough data collected for dev purposes).
       You should create a `db` folder in the home directory, and name the
       database `sidewalk-seattle-dump`.
-    * Google Maps API key
+    * Google Maps API key. This should be saved in the project's home directory.
 
-1. Run `npm install` in the root directory to get dependencies for the front-end
-   components.
+1. Run `npm install` in the project's home directory to get dependencies for the
+   front-end components.
 ```
 SidewalkGallery$ npm install
 ```
@@ -99,7 +99,7 @@ postgres@: pg_dump -t sidewalk.label_severity sidewalk-seattle | psql gallery;
 ## Running the Project
 The front-end just requires us to run Scala. Everything in the `app`, `conf` and 
 ui` directories will automatically be updated upon the next reload. This command
-should be run in the root directory of the project.
+should be run in the home directory of the project.
 
 ```
 SidewalkGallery$ sbt run
