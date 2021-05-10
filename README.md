@@ -1,3 +1,6 @@
+# NOTE
+This was a partially completed prototype of Sidewalk Gallery. The eventual implementation used an entirely different architecture. The current implementation is part of the [SidewalkWebpage](https://github.com/ProjectSidewalk/SidewalkWebpage) repository, in [public/javascripts/Gallery](https://github.com/ProjectSidewalk/SidewalkWebpage/tree/develop/public/javascripts/Gallery). The SidewalkGallery repository you're looking at had bugs in it's initial implementation and is not being maintained.
+
 # Sidewalk Gallery
 ![image](https://user-images.githubusercontent.com/25534091/84452867-dec08c80-ac0b-11ea-8a90-ae8eeef03f01.png)
 
